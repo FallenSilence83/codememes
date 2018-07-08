@@ -10,7 +10,6 @@
 | is ready to receive HTTP / Console requests from the environment.
 |
 */
-die('text');
 
 $app = require __DIR__.'/../bootstrap/app.php';
 
