@@ -1,12 +1,14 @@
 <?php
 $defaultRedisHost = '127.0.0.1';
 $defaultRedisPort = 6379;
+$defaultRedisPass = null;
 $redisUrl = env('REDIS_URL');
 if($redisUrl){
     syslog(LOG_INFO, 'Found alternate redis url config');
 
     $defaultRedisHost = parse_url($redisUrl, PHP_URL_HOST);
     $defaultRedisPort = parse_url($redisUrl, PHP_URL_PORT);
+    $defaultRedisPass = parse_url($redisUrl, PHP_URL_PASS);
     if(empty($defaultRedisPort))
         $defaultRedisPort = 6379;
 }
@@ -137,7 +139,7 @@ return [
             'host'     => env('REDIS_HOST', $defaultRedisHost),
             'port'     => env('REDIS_PORT', $defaultRedisPort),
             'database' => env('REDIS_DATABASE', 0),
-            'password' => env('REDIS_PASSWORD', null),
+            'password' => env('REDIS_PASSWORD', $defaultRedisPass),
         ],
 
     ],
