@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="newGameButton" type="submit" class="btn btn-lg btn-default mt-2 disabled">All Systems Go!</button>
+                        <button id="newGameButton" type="submit" class="btn btn-lg btn-default mt-2" disabled>All Systems Go!</button>
                     </form>
                 </div>
             </div>
