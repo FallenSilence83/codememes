@@ -37,6 +37,7 @@ var Room = window.Room || {
                     }else{
                         clearGame = true;
                     }
+                    Room.refreshRoom();
                     Room.refreshGame(clearGame, isNewGame);
 
                     setTimeout('Room.checkForUpdates();', 5000);
@@ -257,7 +258,7 @@ var Room = window.Room || {
         if(alertMessages == ''){
             //no alerts, enable the submit button and hide the alerts
             $('#newGameAlert').hide();
-            $('#newGameButton').removeAttr('disabled');
+            $('#newGameButton').attr('disabled', false);
         }else{
             $('#newGameAlert').show();
             $('#newGameButton').attr('disabled', true);
