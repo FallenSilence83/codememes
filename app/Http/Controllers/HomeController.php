@@ -26,4 +26,14 @@ class HomeController extends Controller
         $this->init($request);
         return view('home', ['user' => $this->user]);
     }
+
+    /**
+     * displays a loading iframe
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function loading(Request $request)
+    {
+        return view('loading', []);
+    }
 }

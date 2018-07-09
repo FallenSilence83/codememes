@@ -115,17 +115,12 @@
             <p class="footer-text">CodeMemes is a project created by Donald J. Trump's Space Force<sup>&trade;</sup></p>
             <p class="footer-text">
                 All credit to our great leader. Complaints? Contact
-                <a href="mailto:mueller@fakenews.com?Subject=CodeMemes%SUX">mueller@fakenews.com</a>
+                <a href="mailto:mueller@fakenews.com?Subject=CodeMemes%20SUX%20LOL">mueller@fakenews.com</a>
             </p>
         </footer>
     @show
 
     @section('modal')
-        <!-- Large modal -->
-        <button id='memeModalTest' type="button" class="btn btn-primary">Meme Test</button>
-        <button id='youTubeModalTest' type="button" class="btn btn-primary">YouTube Test</button>
-        <button id='rickTest' type="button" class="btn btn-primary">Rick</button>
-
         <div id="memeModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="memeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" >
                 <div class="modal-content" style="text-align:center;">
@@ -161,9 +156,7 @@
                 <div class="modal-content" style="text-align:center;">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            <ion-icon name="musical-notes"></ion-icon>
-                            NEVER GONNA GIVE YOU UP
-                            <ion-icon name="musical-notes"></ion-icon>
+                            YOU&lsquo;VE BEEN RICK ROLLED!
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>

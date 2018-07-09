@@ -14,6 +14,9 @@
 $router->get('/', [
     'as' => 'home', 'uses' => 'HomeController@home'
 ]);
+$router->get('/loading', [
+    'as' => 'loading', 'uses' => 'HomeController@loading'
+]);
 
 //room endpoints
 $router->get('/room', [

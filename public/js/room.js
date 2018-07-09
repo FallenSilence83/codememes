@@ -180,7 +180,7 @@ var Room = window.Room || {
             $('#orangeTeamSelect').append(Room.getUserLi(player));
             $('#orangeCaptain').append('<option value="'+player.userId+'">'+player.displayName+'</option>');
         });
-
+        Room.refreshRoom();
     },
 
     refreshBlueTeam: function(){
@@ -194,6 +194,7 @@ var Room = window.Room || {
             $('#blueTeamSelect').append(Room.getUserLi(player));
             $('#blueCaptain').append('<option value="'+player.userId+'">'+player.displayName+'</option>');
         });
+        Room.refreshRoom();
     },
 
     refreshUser: function(){
@@ -232,6 +233,37 @@ var Room = window.Room || {
         }
     },
 
+    refreshRoom: function(){
+        //evaluate whether create new game conditions have been met
+        var orangeCount = Object.keys(Room.orangeState).length;
+        var blueCount = Object.keys(Room.blueState).length;
+        var orangeCaptain = $('#orangeCaptain').val();
+        var blueCaptain = $('#blueCaptain').val();
+        var alertMessages = '';
+        var alertIcon = '<ion-icon name="egg"></ion-icon>';
+        if(orangeCount < 2){
+            alertMessages += '<div>' + alertIcon + ' Not enough folks on the orange team.</div>';
+        }
+        if(blueCount < 2){
+            alertMessages += '<div>' + alertIcon + ' Not enough folks on the blue team.</div>';
+        }
+        if(orangeCaptain == null || orangeCaptain == ''){
+            alertMessages += '<div>' + alertIcon + ' No orange captain selected.</div>';
+        }
+        if(blueCaptain == null || blueCaptain == ''){
+            alertMessages += '<div>' + alertIcon + ' No blue captain selected.</div>';
+        }
+        $('.new-game-issues').html(alertMessages);
+        if(alertMessages == ''){
+            //no alerts, enable the submit button and hide the alerts
+            $('#newGameAlert').hide();
+            $('#newGameButton').removeAttr('disabled');
+        }else{
+            $('#newGameAlert').show();
+            $('#newGameButton').attr('disabled', true);
+        }
+    },
+
     refreshGame: function(clearGame, isNewGame){
         if(clearGame || isNewGame){
             $('#gameBoard').html('');
@@ -247,6 +279,13 @@ var Room = window.Room || {
             }else if(gameOver && Room.gameState.winningTeam == Room.userState.team){
                 //winner
                 Room.memeModal('#Winning', 'https://i.kym-cdn.com/photos/images/newsfeed/001/296/357/663.gif');
+            }
+
+            //id captains and inject notifier classes
+            if(Room.userState.userId == Room.gameState.blueCaptainId || Room.userState.userId == Room.gameState.orangeCaptainId){
+                $('body').addClass('captain');
+            }else{
+                $('body').removeClass('captain');
             }
 
             $('.game-nav').addClass('active');
@@ -453,14 +492,14 @@ var Room = window.Room || {
 
     youTubeModal: function(label, videoKey){
         $('#youTubeModal .modal-title').html(''+label);
-        var url = 'http://www.youtube.com/embed/' + videoKey + '?rel=0&amp;autoplay=1';
+        var url = 'https://www.youtube.com/embed/' + videoKey + '?rel=0&amp;autoplay=1';
         $('#youTubeModal iframe').attr('src', url);
         $('#youTubeModal').modal('show');
     },
 
     rickRoll: function(){
         $('#rickModal').modal('show');
-        $('#rickModal iframe').attr('src', 'http://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;autoplay=1');
+        $('#rickModal iframe').attr('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;autoplay=1');
     },
 
     memeBinding: function(){
@@ -523,25 +562,15 @@ var Room = window.Room || {
         });
 
         $('#rickModal').on('hidden.bs.modal', function () {
-            $('#rickModal iframe').attr('src', 'http://www.youtube.com/embed/2Z4m4lnjxkY');
+            $('#rickModal iframe').attr('src', '/loading');
         });
 
         $('#youTubeModal').on('hidden.bs.modal', function () {
-            $('#youTubeModal iframe').attr('src', 'http://www.youtube.com/embed/2Z4m4lnjxkY');
+            $('#youTubeModal iframe').attr('src', '/loading');
         });
 
         $('#createGame button.close').on('click', function() {
             $('#createGame').hide();
-        });
-
-        $('#rickTest').on('click', function(){
-            Room.rickRoll();
-        })
-        $('#youTubeModalTest').on('click', function(){
-            Room.youTubeModal('NL Random Video', 'U6pjkAmCbIE');
-        });
-        $('#memeModalTest').on('click', function(){
-            Room.memeModal('Testing Meme', 'https://i.kym-cdn.com/photos/images/newsfeed/001/296/357/663.gif');
         });
 
         //https://media.giphy.com/media/1ryrwFNXqNjC8/giphy.gif

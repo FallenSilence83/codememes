@@ -26,7 +26,7 @@ class UserController extends Controller
 
         if(isset($this->user) && $this->user->userId != null){
             if(!empty($request->input('roomId'))){
-                $this->user->gameId = $request->input('roomId');
+                $this->user->roomId = $request->input('roomId');
             }
             if(!empty($request->input('gameId'))){
                 $this->user->gameId = $request->input('gameId');
@@ -92,6 +92,20 @@ class UserController extends Controller
      */
     public function logout(Request $request)
     {
+        try{
+            $this->init($request);
+            if($this->user->roomId){
+                try{
+                    $oldRoom = new Room($this->user->roomId);
+                    $oldRoom->removeUser($this->user->userId);
+                    $oldRoom->save();
+                }catch (\Exception $e){}
+            }
+        }catch (\Exception $e){
+            echo "failed to save udpate room";
+        }
+
+        //create a new user to replace the old one
         $this->user = new User();
         if(isset($this->user->userId)){
             Cache::put('user_'.$this->user->userId, serialize($this->user), 30);

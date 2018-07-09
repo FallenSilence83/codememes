@@ -16,7 +16,7 @@
             <form class="form-inline">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button href="/room" type="button" class="btn btn-lg btn-default linked-btn">Cash me ousside! Howbow dah?</button>
+                        <button href="/room?new=true" type="button" class="btn btn-lg btn-default linked-btn">Cash me ousside! Howbow dah?</button>
                     </div>
                 </div>
             </form>

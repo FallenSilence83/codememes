@@ -106,7 +106,7 @@
                 <span aria-hidden="true">×</span>
             </button>
             <div class="col">
-                <div class="jumbotron text-center bg-secondary">
+                <div class="jumbotron text-center jumbotron-neutral">
                     <h2>Create New Game</h2>
                     <hr/>
                     <form id="newGameForm" class="form">
@@ -128,8 +128,16 @@
                                 </div>
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-lg btn-default mt-2">All Systems Go!</button>
+                        <div id="newGameAlert" class="alert alert-warning" role="alert">
+                            <strong>The teams aren't quite ready to start a game.</strong>
+                            <div class="new-game-issues">
+                                <div>
+                                    <ion-icon name="egg"></ion-icon>
+                                    Not enough folks on the blue team
+                                </div>
+                            </div>
+                        </div>
+                        <button id="newGameButton" type="submit" class="btn btn-lg btn-default mt-2 disabled">All Systems Go!</button>
                     </form>
                 </div>
             </div>

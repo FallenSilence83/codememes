@@ -84,6 +84,24 @@ class Room implements \Serializable, \JsonSerializable
 
     /**
      * @param $userId
+     */
+    public function removeUser($userId){
+        if (in_array($userId, $this->orangeTeamIds)) {
+            $key = array_search($userId, $this->orangeTeamIds);
+            unset($this->orangeTeamIds[$key]);
+        }
+        if (in_array($userId, $this->blueTeamIds)) {
+            $key = array_search($userId, $this->blueTeamIds);
+            unset($this->blueTeamIds[$key]);
+        }
+        if (in_array($userId, $this->userIds)) {
+            $key = array_search($userId, $this->userIds);
+            unset($this->userIds[$key]);
+        }
+    }
+
+    /**
+     * @param $userId
      * @return bool
      */
     public function addUserToOrange($userId)

@@ -30,12 +30,21 @@ class RoomController extends Controller
     {
         $this->init($request);
         $roomIdParam = $request->input('roomId');
+        $forceNew = ($request->input('new') == 'true');
         if(!empty($roomIdParam)){
             //join the specified room
             $joinResponse = $this->join($request);
         }else{
             if($this->user->roomId == null){
                 //create new room
+                $createResponse = $this->create($request);
+            }elseif($forceNew){
+                //create new room
+                try{
+                    $oldRoom = new Room($this->user->roomId);
+                    $oldRoom->removeUser($this->user->userId);
+                    $oldRoom->save();
+                }catch (\Exception $e){}
                 $createResponse = $this->create($request);
             }else{
                 try{
@@ -129,6 +138,8 @@ class RoomController extends Controller
             $room->save();
 
             $this->user->roomId = $room->roomId;
+            $this->user->team = null;
+            $this->user->isCaptain = false;
             $this->user->save();
 
             return response()->json($room->toArray());

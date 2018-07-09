@@ -79,6 +79,9 @@ body.game-over .nav-item.nav-game{
 .jumbotron-alt {
     background-color: #3a6884;
 }
+.jumbotron-neutral {
+    background-color: #121212;
+}
 .container-fluid {
     padding: 20px 50px;
 }
@@ -316,8 +319,8 @@ body.turn-orange .btn-meme-select{
 .meme-card .thumbnail:hover .action-line{
     display:block;
 }
-body.team-orange.turn-orange .meme-card:not(.selected) .thumbnail:hover .select-line,
-body.team-blue.turn-blue .meme-card:not(.selected) .thumbnail:hover .select-line{
+body.team-orange.turn-orange:not(.game-over):not(.captain) .meme-card:not(.selected) .thumbnail:hover .select-line,
+body.team-blue.turn-blue:not(.game-over):not(.captain) .meme-card:not(.selected) .thumbnail:hover .select-line{
     display:block;
 }
 .meme-card .meme-link{
