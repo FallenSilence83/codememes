@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <meta name="description" content="CodeMemes is a live multi-player browser game.  Join fiends to play a game about guessing which memes belong to your team.">
+    <meta name="keywords" content="CodeMemes, CodeNames, Memes, Game, Multiplayer">
+    <meta name="author" content="FallenSilence83">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>CodeMemes - @yield('title')</title>
     <link rel="shortcut icon" href="/img/favicon.ico" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
