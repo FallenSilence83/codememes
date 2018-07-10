@@ -62,6 +62,7 @@ class Controller extends BaseController
     protected function getRoomInfo($room){
         $roomInfo = $room->getOutput();
         if($roomInfo && isset($roomInfo['game']) && !empty($roomInfo['game'])){
+            echo '1';die;
             $game = $roomInfo['game'];
             $scoreOrange = 0;
             $scoreBlue = 0;
@@ -91,5 +92,17 @@ class Controller extends BaseController
             $roomInfo['game'] = $game;
         }
         return $roomInfo;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getBaseUrl()
+    {
+        return sprintf(
+            "%s://%s",
+            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+            $_SERVER['SERVER_NAME']
+        );
     }
 }

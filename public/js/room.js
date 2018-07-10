@@ -574,7 +574,47 @@ var Room = window.Room || {
             $('#createGame').hide();
         });
 
-        //https://media.giphy.com/media/1ryrwFNXqNjC8/giphy.gif
+        $('.copy-invite').on('click', function(){
+            var copyText = document.getElementById("inviteLink");
+            copyText.select();
+            document.execCommand("copy");
+            $('#copyInvite').html('Copied');
+            setTimeout("$('#copyInvite').html('Copy');", 3000);
+        });
+
+        $('.invite-toggle').on('click', function(){
+            var currentName = $(this).attr('name');
+            var hideInvites = null;
+            if(currentName == 'eye-off'){
+                //hide
+                $('.invite-field').hide();
+                $('.invite-toggle').attr('name', 'eye');
+                hideInvites = "true";
+            }else{
+                //show
+                $('.invite-field').show();
+                $('.invite-toggle').attr('name', 'eye-off');
+                hideInvites = "false";
+            }
+            //update the user in session
+            $.ajax({
+                url: '/user/update',
+                method: "POST",
+                data: { hideInvites: hideInvites },
+                dataType: "json",
+                success: function (result) {
+                    if (result.error) {
+                        console.log('json error: ' + result.error);
+                    }
+                },
+                error: function () {
+                    console.log("todo: error handling");
+                },
+                complete: function () {
+
+                }
+            });
+        });
     },
 
 };

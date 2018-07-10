@@ -30,8 +30,11 @@ class RoomController extends Controller
     {
         $this->init($request);
         $roomIdParam = $request->input('roomId');
+        if($roomIdParam !=null){
+            $roomIdParam = trim($roomIdParam);
+        }
         $forceNew = ($request->input('new') == 'true');
-        if(!empty($roomIdParam)){
+        if(!empty($roomIdParam) && $this->user->roomId != $roomIdParam){
             //join the specified room
             $joinResponse = $this->join($request);
         }else{
@@ -63,7 +66,9 @@ class RoomController extends Controller
 
             $tplVars = [
                 'user' => $this->user,
-                'roomInfo' => $this->getRoomInfo($room)
+                'roomInfo' => $this->getRoomInfo($room),
+                'baseUrl' => $this->getBaseUrl(),
+                'roomId' => $room->roomId
             ];
         }catch (\Exception $e){
             $tplVars = [
@@ -165,6 +170,7 @@ class RoomController extends Controller
             $room->save();
 
             $this->user->roomId = $room->roomId;
+            $this->user->team = null;
             $this->user->save();
             return response()->json($room->toArray());
         }catch (\Exception $e){

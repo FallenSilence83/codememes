@@ -23,7 +23,7 @@
         </div>
         <div class="jumbotron text-center jumbotron-full jumbotron-alt">
             <h1>Join A Room</h1>
-            <p>Do you know da way?</p>
+            <p>Do U No Da Wae?</p>
             <form class="form-inline" action="/room">
                 <div class="input-group">
                     <input type="text" name="roomId" class="form-control" size="50" placeholder="Room Code" required
@@ -32,7 +32,7 @@
                         @endif
                     />
                     <div class="input-group-btn">
-                        <button type="submit" class="btn btn-lg btn-danger">Yes, I know da way!</button>
+                        <button type="submit" class="btn btn-lg btn-danger">Yes, I No Da Wae!</button>
                     </div>
                 </div>
             </form>

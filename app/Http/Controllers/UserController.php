@@ -44,7 +44,11 @@ class UserController extends Controller
             if(!empty($request->input('isCaptain'))){
                 $this->user->isCaptain = ($request->input('isCaptain') == 'true');
             }
-            Cache::put('user_'.$this->user->userId, $this->user->serialize(), 30);
+            if(!empty($request->input('hideInvites'))){
+                $this->user->hideInvites = ($request->input('hideInvites') == 'true');
+            }
+            $this->user->save();
+            //Cache::put('user_'.$this->user->userId, $this->user->serialize(), 30);
         }
         return response()->json($this->user->toArray());
     }

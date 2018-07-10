@@ -78,19 +78,24 @@
                 </li>
             </ul>
 
-            <div class=" my-2 my-lg-0 mr-1">
-                @if ($user->displayName != null)
-                    <div class="help-text">You are logged in as:</div>
-                    <div>
-                        <span class="user-badge badge badge-secondary">
-                            {{$user->displayName}}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    @if ($user->displayName != null)
+                        <div class="help-text">
+                            You are logged in as: &nbsp;&nbsp;
+                            <ion-icon class="edit-user" name="create"></ion-icon>
                             <a class="logout" href="#" title="Reset">
                                 <ion-icon name="log-out"></ion-icon>
                             </a>
+                        </div>
+                        <div>
+                        <span class="user-badge badge badge-secondary">
+                            {{$user->displayName}}
                         </span>
-                    </div>
-                @endif
-            </div>
+                        </div>
+                    @endif
+                </li>
+            </ul>
         </div>
     </nav>
     @show
@@ -156,7 +161,7 @@
                 <div class="modal-content" style="text-align:center;">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            YOU&lsquo;VE BEEN RICK ROLLED!
+                            You've Been Rick Rolled!
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -164,6 +169,29 @@
                     </div>
                     <div class="modal-body">
                         <iframe width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="editUserModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" >
+                <div class="modal-content" style="text-align:center;">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Edit User
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editUserForm" class="form">
+                            <div class="form-group">
+                                <label for="displayName">Display Name:</label>
+                                <input id="displayNameEdit" type="text" class="form-control" value="{{$user->displayName}}"/>
+                            </div>
+                            <button id="editUserSubmit" type="submit" class="btn btn-sm btn-default mt-2">Save</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -223,7 +223,15 @@ class Room implements \Serializable, \JsonSerializable
         //fill the game
         $game = null;
         if ($this->gameId != null) {
-            $game = new Game($this->gameId);
+            $aGame = Cache::get('game_'.$this->gameId);
+            if($aGame){
+                //valid game, load it
+                $game = new Game($this->gameId);
+            }else{
+                //bad gameId, clear it
+                $this->gameId = null;
+                $this->save();
+            }
         }
 
         //get all the users

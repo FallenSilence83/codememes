@@ -17,7 +17,14 @@
                     <ion-icon id="sidebarNewGame" class="show-new-game" name="sync" title="New Game"></ion-icon>
                 </h3>
                 <strong>Room Code:</strong>
-                {{$roomInfo['room']->roomId}}
+                <span class="invite-field" @if ($user->hideInvites)style="display:none;"@endif;>{{$roomInfo['room']->roomId}}</span>
+                <ion-icon class="invite-toggle"
+                          @if ($user->hideInvites)
+                            name="eye"
+                          @else
+                            name="eye-off"
+                          @endif;
+                          title="Toggle Invite Visibility"></ion-icon>
             </div>
 
             <ul class="list-unstyled components">
@@ -109,6 +116,24 @@
                 <div class="jumbotron text-center jumbotron-neutral">
                     <h2>Create New Game</h2>
                     <hr/>
+                    <div class="invite-container">
+                        <h5 >
+                            Invite Friends
+                            <ion-icon class="invite-toggle"
+                                      @if ($user->hideInvites)
+                                          name="eye"
+                                      @else
+                                          name="eye-off"
+                                      @endif;
+                                      title="Toggle Invite Visibility"></ion-icon>
+                        </h5>
+                        <div class="invite-field input-group" @if ($user->hideInvites)style="display:none;"@endif;>
+                            <input id="inviteLink" type="text" class="form-control" value="{{$baseUrl}}/room?roomId={{$roomId}}"/>
+                            <div class="input-group-btn">
+                                <button id="copyInvite" type="button" class="copy-invite btn btn-lg btn-info">Copy</button>
+                            </div>
+                        </div>
+                    </div>
                     <form id="newGameForm" class="form">
                         <div class="row">
                             <div class="col">
@@ -128,7 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="newGameAlert" class="alert alert-warning" role="alert">
+                        <div id="newGameAlert" class="alert alert-warning ml-auto mr-auto" role="alert">
                             <strong>The teams aren't quite ready to start a game.</strong>
                             <div class="new-game-issues">
                                 <div>

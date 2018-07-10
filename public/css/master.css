@@ -1,3 +1,10 @@
+ion-icon{
+    min-width:15px;
+    min-height:15px;
+}
+.edit-user{
+    cursor: pointer;
+}
 .user-badge{
     font-size: 1.1em;
 }
@@ -327,10 +334,10 @@ body.team-blue.turn-blue:not(.game-over):not(.captain) .meme-card:not(.selected)
     cursor: pointer;
 }
 .game-nav{
-    visibility: hidden;
+    display: none;
 }
 .game-nav.active{
-    visibility: visible;
+    display: flex;
 }
 .nav-clue-form.orange input,
 .nav-clue-form.orange select,
@@ -514,4 +521,13 @@ body.team-blue .nav-clue.orange .display-clue-number{
     right: 35px;
     color: #fff;
     z-index: 20;
+}
+.invite-container{
+    margin-bottom:15px;
+}
+.invite-toggle{
+    cursor: pointer;
+}
+#newGameAlert{
+    max-width:500px;
 }

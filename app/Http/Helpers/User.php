@@ -28,6 +28,10 @@ class User implements \Serializable, \JsonSerializable
      * @var bool
      */
     protected $isCaptain;
+    /**
+     * @var bool
+     */
+    protected $hideInvites;
 
     const TEAM_ORANGE = 'orange';
     const TEAM_BLUE = 'blue';
@@ -40,7 +44,8 @@ class User implements \Serializable, \JsonSerializable
      * @param string $team
      * @param bool $isCaptain
      */
-    public function __construct($userId = null, $roomId = null, $displayName = null, $team = null, $isCaptain = false)
+    public function __construct($userId = null, $roomId = null, $displayName = null, $team = null,
+                                $isCaptain = false, $hideInvites = false)
     {
         $this->userId = $userId;
         $bFresh = true;
@@ -59,6 +64,7 @@ class User implements \Serializable, \JsonSerializable
             $this->displayName = (!empty($displayName)) ? $displayName : NameGenerator::randomName();
             $this->team = $team;
             $this->isCaptain = $isCaptain;
+            $this->hideInvites = $hideInvites;
         }
     }
 
@@ -125,7 +131,8 @@ class User implements \Serializable, \JsonSerializable
             'roomId' => $this->roomId,
             'displayName' => $this->displayName,
             'team' => $this->team,
-            'isCaptain' => $this->isCaptain
+            'isCaptain' => $this->isCaptain,
+            'hideInvites' => $this->hideInvites
         ];
     }
 
@@ -139,5 +146,6 @@ class User implements \Serializable, \JsonSerializable
         $this->displayName = (isset($aUser['displayName'])) ? $aUser['displayName'] : null;
         $this->team = (isset($aUser['team'])) ? $aUser['team'] : null;
         $this->isCaptain = (isset($aUser['isCaptain'])) ? $aUser['isCaptain'] : null;
+        $this->hideInvites = (isset($aUser['hideInvites'])) ? $aUser['hideInvites'] : null;
     }
 }
