@@ -62,7 +62,6 @@ class Controller extends BaseController
     protected function getRoomInfo($room){
         $roomInfo = $room->getOutput();
         if($roomInfo && isset($roomInfo['game']) && !empty($roomInfo['game'])){
-            echo '1';die;
             $game = $roomInfo['game'];
             $scoreOrange = 0;
             $scoreBlue = 0;
