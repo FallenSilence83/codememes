@@ -136,9 +136,15 @@ class Room implements \Serializable, \JsonSerializable
         return $result;
     }
 
-    public function newGame($orangeCaptain, $blueCaptain)
+    /**
+     * @param $orangeCaptain
+     * @param $blueCaptain
+     * @param string $mode
+     * @return Game
+     */
+    public function newGame($orangeCaptain, $blueCaptain, $mode = Game::MODE_MEMES)
     {
-        $game = new Game(null, $orangeCaptain, $blueCaptain);
+        $game = new Game(null, $orangeCaptain, $blueCaptain, $mode);
         $this->gameId = $game->gameId;
         $game->save();
         

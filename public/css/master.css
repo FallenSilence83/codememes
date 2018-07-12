@@ -1,8 +1,49 @@
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-5ths {
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+        float: left;
+    }
+}
 ion-icon{
     min-width:15px;
     min-height:15px;
 }
-.edit-user{
+.edit-user,
+.mute-button{
     cursor: pointer;
 }
 .user-badge{
@@ -53,10 +94,18 @@ body.game-over .nav-item.nav-turn-msg{
 body.game-over .nav-item.nav-game{
     display:block;
 }
+.user-nav{
+    position: relative;
+}
 .help-text{
     font-size:.8em;
     font-weight:bold;
     color:#555;
+}
+.user-nav .user-actions{
+    position:absolute;
+    top: -20px;
+    left: 0;
 }
 .homepage .jumbotron{
     padding: 100px 25px;
@@ -82,6 +131,7 @@ body.game-over .nav-item.nav-game{
 }
 .jumbotron .btn-default{
     color:#555;
+    background-color:#fafafa
 }
 .jumbotron-alt {
     background-color: #3a6884;
@@ -249,7 +299,8 @@ ul li.blue-team ul a, ul li.blue-team ul  span {
 .caption{
     text-align: center;
 }
-.meme-card{
+.meme-card,
+.word-card{
     /*margin:3px;*/
 }
 .meme-card .caption{
@@ -257,22 +308,33 @@ ul li.blue-team ul a, ul li.blue-team ul  span {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.meme-card .thumbnail{
+.meme-card .thumbnail
+.word-card .word-thumbnail{
     position:relative;
 }
-.meme-card .thumbnail img{
+.meme-card .thumbnail img,
+.meme-card .thumbnail canvas,
+.word-card .word-thumbnail {
     border: 5px solid #fff;
 }
-.meme-card.neutral .thumbnail img{
+.meme-card.neutral .thumbnail img,
+.meme-card.neutral .thumbnail canvas,
+.word-card.neutral .word-thumbnail {
     border: 5px solid limegreen;
 }
-.meme-card.rick .thumbnail img{
+.meme-card.rick .thumbnail img,
+.meme-card.rick .thumbnail canvas,
+.word-card.rick .word-thumbnail {
     border: 5px solid #000;
 }
-.meme-card.orange .thumbnail img{
+.meme-card.orange .thumbnail img,
+.meme-card.orange .thumbnail canvas,
+.word-card.orange .word-thumbnail {
     border: 5px solid #f23f09;
 }
-.meme-card.blue .thumbnail img{
+.meme-card.blue .thumbnail img,
+.meme-card.blue .thumbnail canvas,
+.word-card.blue .word-thumbnail {
     border: 5px solid #5a9abf;
 }
 .meme-img{
@@ -283,7 +345,8 @@ ul li.blue-team ul a, ul li.blue-team ul  span {
 .meme-card .select-line{
     display:none;
     position:absolute;
-    top:0px;
+    top:2px;
+    left:0;
     font-size: 1.3em;
     color:#fff;
     width: 100%;
@@ -293,12 +356,14 @@ ul li.blue-team ul a, ul li.blue-team ul  span {
     opacity: .8;
     padding: 3px 15px;
 }
-body.turn-blue .btn-meme-select{
+body.turn-blue .btn-meme-select,
+body.turn-blue .btn-word-select{
     background-color: #3a6884;
     border-color: #3a6884;
     opacity: 1;
 }
-body.turn-orange .btn-meme-select{
+body.turn-orange .btn-meme-select,
+body.turn-orange .btn-word-select{
     background-color: #f23f09;
     border-color: #f23f09;
     opacity: 1;
@@ -306,9 +371,13 @@ body.turn-orange .btn-meme-select{
 .meme-card.selected{
     opacity: .3;
 }
+.word-card.selected{
+    opacity: .5;
+}
 .meme-card .action-line{
     display:none;
     position:absolute;
+    left:0;
     top:129px;
     font-size: 1.3em;
     background-color: #fff;
@@ -327,17 +396,79 @@ body.turn-orange .btn-meme-select{
     display:block;
 }
 body.team-orange.turn-orange:not(.game-over):not(.captain) .meme-card:not(.selected) .thumbnail:hover .select-line,
-body.team-blue.turn-blue:not(.game-over):not(.captain) .meme-card:not(.selected) .thumbnail:hover .select-line{
+body.team-blue.turn-blue:not(.game-over):not(.captain) .meme-card:not(.selected) .thumbnail:hover .select-line,
+body.team-orange.turn-orange:not(.game-over):not(.captain) .word-card:not(.selected) .word-thumbnail .select-line,
+body.team-blue.turn-blue:not(.game-over):not(.captain) .word-card:not(.selected) .word-thumbnail .select-line{
     display:block;
 }
-.meme-card .meme-link{
+.turn-blue .icon-word-select:hover{
+    color:#91bbd4;
+}
+.turn-orange .icon-word-select:hover{
+    color:#faa085;
+}
+.meme-card .meme-link,
+.icon-word-select{
     cursor: pointer;
 }
+
+.word-card {
+    margin-bottom: 20px;
+}
+.word-card .select-line{
+    display:none;
+    position:absolute;
+    bottom:7px;
+    left:0;
+    font-size: 1.3em;
+    width: 100%;
+    min-height: 1px;
+    text-align:center;
+    background-color: transparent;
+    opacity: .8;
+    padding: 3px 15px;
+    color: #fff;
+}
+.word-card .word-thumbnail {
+    border: 5px solid #999;
+    background-color:#777;
+    text-align:center;
+    font-weight: bold;
+    font-size:20px;
+    color:#fafafa;
+    padding-top:30px;
+    padding-bottom:30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.word-card.neutral .word-thumbnail {
+    border: 5px solid limegreen;
+    background-color:green;
+}
+.word-card.rick .word-thumbnail {
+    border: 5px solid #000;
+    background-color:#232323;
+}
+.word-card.orange .word-thumbnail {
+    border: 5px solid #f4511e;
+    background-color:#db3b0a;
+}
+.word-card.blue .word-thumbnail {
+    border: 5px solid #5a9abf;
+    background-color:#3a6884;
+}
+
 .game-nav{
     display: none;
 }
 .game-nav.active{
     display: flex;
+}
+#clueNumber{
+    width:55px;
+}
+#clueSubmit.btn{
+    overflow:visible;
 }
 .nav-clue-form.orange input,
 .nav-clue-form.orange select,

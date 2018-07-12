@@ -41,4 +41,42 @@ $(document).ready(function () {
             }
         });
     });
+    $('.mute-button').on('click', function(e){
+        e.preventDefault();
+        var mute = 'false';
+        if($(this).attr('name') == 'volume-high'){
+            mute = 'true';
+            $(this).attr('name', 'volume-off');
+        }else{
+            mute = 'false';
+            $(this).attr('name', 'volume-high');
+
+            try {
+                popAudio = document.getElementById("popAudio");
+                if (popAudio) {
+                    popAudio.play();
+                }
+            }catch(error){
+                console.log(error);
+            }
+        }
+        $(this).blur();
+        //update the user in session
+        $.ajax({
+            url: '/user/update',
+            method: "POST",
+            data: { mute: mute },
+            dataType: "json",
+            success: function (result) {
+                if (result.error) {
+                    console.log('json error: ' + result.error);
+                }
+            },
+            error: function () {
+                console.log("todo: error handling");
+            },
+            complete: function () {
+            }
+        });
+    });
 });

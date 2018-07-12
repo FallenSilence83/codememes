@@ -20,7 +20,12 @@
 
     <title>CodeMemes - @yield('title')</title>
     <link rel="shortcut icon" href="/img/favicon.ico" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Material Design Bootstrap
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">-->
+    <link href="/css/mdb-custom.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/master.css">
 </head>
 <body id="codeMemes" data-spy="scroll" data-target=".navbar" data-offset="60" class="">
@@ -67,7 +72,7 @@
                                 <option value="9">9</option>
                                 <option value="0">0</option>
                             </select>
-                            <button id="clueSubmit" class="btn btn-outline-secondary" type="button">Submit</button>
+                            <button id="clueSubmit" class="btn " type="button">Submit</button>
                         </div>
                     </div>
                 </li>
@@ -93,14 +98,23 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item user-nav">
                     @if ($user->displayName != null)
-                        <div class="help-text">
-                            You are logged in as: &nbsp;&nbsp;
+                        <div class="help-text user-actions">
                             <ion-icon class="edit-user" name="create"></ion-icon>
+                            <ion-icon class="mute-button"
+                                  @if ($user->mute)
+                                      name="volume-off"
+                                  @else
+                                      name="volume-high"
+                                  @endif;
+                                ></ion-icon>
                             <a class="logout" href="#" title="Reset">
                                 <ion-icon name="log-out"></ion-icon>
                             </a>
+                        </div>
+                        <div class="help-text">
+                            You are logged in as: &nbsp;&nbsp;
                         </div>
                         <div>
                         <span class="user-badge badge badge-secondary">
@@ -213,12 +227,25 @@
     @show
 
     @section('scripts')
+
+    <audio id="successAudio">
+        <source src="/audio/success.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="failAudio">
+        <source src="/audio/fail.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="popAudio">
+        <source src="/audio/pop.mp3" type="audio/mpeg">
+    </audio>
+
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
     <script src="https://unpkg.com/ionicons@4.2.4/dist/ionicons.js"></script>
     <script src="/js/master.js"></script>
     @show

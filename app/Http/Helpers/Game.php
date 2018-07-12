@@ -15,15 +15,23 @@ class Game implements \Serializable, \JsonSerializable
     /**
      * @var string
      */
+    protected $mode;
+    /**
+     * @var string
+     */
     protected $orangeCaptainId;
     /**
      * @var string
      */
     protected $blueCaptainId;
     /**
-     * @var string
+     * @var Meme[]
      */
     protected $memes;
+    /**
+     * @var Word[]
+     */
+    protected $words;
     /**
      * @var $turn
      */
@@ -49,11 +57,14 @@ class Game implements \Serializable, \JsonSerializable
     const NEUTRAL_CARDS = 6;
     const RICK_CARDS = 1;
 
+    const MODE_MEMES = 'memes';
+    const MODE_WORDS = 'words';
+
     /**
      * Game constructor.
      * @param string $gameId
      */
-    public function __construct($gameId = null, $orangeCaptainId = null, $blueCaptainId = null)
+    public function __construct($gameId = null, $orangeCaptainId = null, $blueCaptainId = null, $mode = self::MODE_MEMES)
     {
         $this->gameId = $gameId;
         if(empty($gameId)){
@@ -64,30 +75,51 @@ class Game implements \Serializable, \JsonSerializable
             $this->unserialize($aGame);
         }else{
             //build the board
+            $this->mode = ($mode == self::MODE_WORDS) ? self::MODE_WORDS : self::MODE_MEMES;
             $totaCount = self::TEAM_ONE_CARDS + self::TEAM_TWO_CARDS + self::NEUTRAL_CARDS + self::RICK_CARDS;
-            $this->memes = Meme::getMemes($totaCount);
-            shuffle($this->memes);
-            $this->turn = (rand(0,1) == 1) ? self::TURN_BLUE : self::TURN_ORANGE;
-            if($this->turn == self::TURN_BLUE){
+
+            $this->turn = (rand(0, 1) == 1) ? self::TURN_BLUE : self::TURN_ORANGE;
+            if ($this->turn == self::TURN_BLUE) {
                 $blueCount = self::TEAM_ONE_CARDS;
                 $orangeCount = self::TEAM_TWO_CARDS;
-            }else{
+            } else {
                 $orangeCount = self::TEAM_ONE_CARDS;
                 $blueCount = self::TEAM_TWO_CARDS;
             }
-            $index = 0;
-            while($blueCount > 0){
-                $this->memes[$index]->status = MEME::STATUS_BLUE;
-                $index++;
-                $blueCount--;
+
+            if($this->mode == self::MODE_WORDS){
+                $this->words = Word::getWords($totaCount);
+                shuffle($this->words);
+                $index = 0;
+                while ($blueCount > 0) {
+                    $this->words[$index]->status = Word::STATUS_BLUE;
+                    $index++;
+                    $blueCount--;
+                }
+                while ($orangeCount > 0) {
+                    $this->words[$index]->status = Word::STATUS_ORANGE;
+                    $index++;
+                    $orangeCount--;
+                }
+                $this->words[$index]->status = Word::STATUS_RICK;
+                shuffle($this->words);
+            }else {
+                $this->memes = Meme::getMemes($totaCount);
+                shuffle($this->memes);
+                $index = 0;
+                while ($blueCount > 0) {
+                    $this->memes[$index]->status = Meme::STATUS_BLUE;
+                    $index++;
+                    $blueCount--;
+                }
+                while ($orangeCount > 0) {
+                    $this->memes[$index]->status = Meme::STATUS_ORANGE;
+                    $index++;
+                    $orangeCount--;
+                }
+                $this->memes[$index]->status = Meme::STATUS_RICK;
+                shuffle($this->memes);
             }
-            while($orangeCount > 0){
-                $this->memes[$index]->status = MEME::STATUS_ORANGE;
-                $index++;
-                $orangeCount--;
-            }
-            $this->memes[$index]->status = MEME::STATUS_RICK;
-            shuffle($this->memes);
             $this->orangeCaptainId = $orangeCaptainId;
             $this->blueCaptainId = $blueCaptainId;
         }
@@ -127,6 +159,53 @@ class Game implements \Serializable, \JsonSerializable
                     }
 
                     if($this->memes[$i]->status != $this->turn || $this->clueNumber <= 0){
+                        $this->toggleTurn();
+                    }else{
+                        $this->clueNumber = intval($this->clueNumber) -1;
+                    }
+                }
+
+                $success = true;
+                break;
+            }
+        }
+        return $success;
+    }
+    
+    /**
+     * @param $wordId
+     * @return bool
+     */
+    public function selectWord($wordId)
+    {
+        $success = false;
+        for($i=0; $i<count($this->words); $i++){
+            if($this->words[$i]->wordId == $wordId){
+                $this->words[$i]->selected = true;
+                //was this an instant-lose condition?
+                if($this->words[$i]->status == Meme::STATUS_RICK){
+                    $this->toggleTurn();
+                    $this->winningTeam = $this->turn;
+                }else{
+                    //evaluate win conditions
+                    $scoreOrange = 0;
+                    $scoreBlue = 0;
+                    foreach($this->words as $word){
+                        if(!$word->selected){
+                            if($word->status == Meme::STATUS_ORANGE){
+                                $scoreOrange++;
+                            }elseif($word->status == Meme::STATUS_BLUE){
+                                $scoreBlue++;
+                            }
+                        }
+                    }
+                    if($scoreBlue == 0){
+                        $this->winningTeam = self::TURN_BLUE;
+                    }elseif($scoreOrange == 0){
+                        $this->winningTeam = self::TURN_ORANGE;
+                    }
+
+                    if($this->words[$i]->status != $this->turn || $this->clueNumber <= 0){
                         $this->toggleTurn();
                     }else{
                         $this->clueNumber = intval($this->clueNumber) -1;
@@ -211,6 +290,7 @@ class Game implements \Serializable, \JsonSerializable
         return [
             'gameId' => $this->gameId,
             'memes' => $this->memes,
+            'words' => $this->words,
             'turn' => $this->turn,
             'orangeCaptainId' => $this->orangeCaptainId,
             'blueCaptainId' => $this->blueCaptainId,
@@ -227,6 +307,7 @@ class Game implements \Serializable, \JsonSerializable
     {
         $this->gameId = (isset($aGame['gameId'])) ? $aGame['gameId'] : null;
         $this->memes = (isset($aGame['memes'])) ? $aGame['memes'] : null;
+        $this->words = (isset($aGame['words'])) ? $aGame['words'] : null;
         $this->turn = (isset($aGame['turn'])) ? $aGame['turn'] : null;
         $this->orangeCaptainId = (isset($aGame['orangeCaptainId'])) ? $aGame['orangeCaptainId'] : null;
         $this->blueCaptainId = (isset($aGame['blueCaptainId'])) ? $aGame['blueCaptainId'] : null;

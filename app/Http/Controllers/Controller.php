@@ -60,35 +60,62 @@ class Controller extends BaseController
      * @return array
      */
     protected function getRoomInfo($room){
-        $roomInfo = $room->getOutput();
-        if($roomInfo && isset($roomInfo['game']) && !empty($roomInfo['game'])){
-            $game = $roomInfo['game'];
-            $scoreOrange = 0;
-            $scoreBlue = 0;
-            $isCaptain = ($this->user->userId == $game->orangeCaptainId || $this->user->userId == $game->blueCaptainId);
-            $gameOver = ($game->winningTeam == Game::TURN_ORANGE || $game->winningTeam == Game::TURN_BLUE);
+        if($room) {
+            $roomInfo = $room->getOutput();
+            if ($roomInfo && isset($roomInfo['game']) && !empty($roomInfo['game'])) {
+                $game = $roomInfo['game'];
+                $scoreOrange = 0;
+                $scoreBlue = 0;
+                $isCaptain = ($this->user->userId == $game->orangeCaptainId || $this->user->userId == $game->blueCaptainId);
+                $gameOver = ($game->winningTeam == Game::TURN_ORANGE || $game->winningTeam == Game::TURN_BLUE);
 
-            $memes = $game->memes;
-            $processedMemes = [];
-            foreach($memes as $meme){
-                if(!$meme->selected){
-                    if($meme->status == Meme::STATUS_ORANGE){
-                        $scoreOrange++;
-                    }elseif($meme->status == Meme::STATUS_BLUE){
-                        $scoreBlue++;
-                    }
-                    if(!$isCaptain && !$gameOver){
-                        $meme->status = 'default';
+                $memes = $game->memes;
+                $processedMemes = [];
+                if(is_array($memes)) {
+                    foreach ($memes as $meme) {
+                        if (!$meme->selected) {
+                            if ($meme->status == Meme::STATUS_ORANGE) {
+                                $scoreOrange++;
+                            } elseif ($meme->status == Meme::STATUS_BLUE) {
+                                $scoreBlue++;
+                            }
+                            if (!$isCaptain && !$gameOver) {
+                                $meme->status = 'default';
+                            }
+                        }
+
+                        $processedMemes[] = $meme;
                     }
                 }
 
-                $processedMemes[] = $meme;
+                $words = $game->words;
+                $processedWords = [];
+                if(is_array($words)) {
+                    foreach ($words as $word) {
+                        if (!$word->selected) {
+                            if ($word->status == Meme::STATUS_ORANGE) {
+                                $scoreOrange++;
+                            } elseif ($word->status == Meme::STATUS_BLUE) {
+                                $scoreBlue++;
+                            }
+                            if (!$isCaptain && !$gameOver) {
+                                $word->status = 'default';
+                            }
+                        }
+
+                        $processedWords[] = $word;
+                    }
+                }
+                
+                $game = $game->toArray();
+                $game['memes'] = $processedMemes;
+                $game['words'] = $processedWords;
+                $game['scoreOrange'] = $scoreOrange;
+                $game['scoreBlue'] = $scoreBlue;;
+                $roomInfo['game'] = $game;
             }
-            $game = $game->toArray();
-            $game['memes'] = $processedMemes;
-            $game['scoreOrange'] = $scoreOrange;
-            $game['scoreBlue'] = $scoreBlue;;
-            $roomInfo['game'] = $game;
+        }else{
+            $roomInfo = null;
         }
         return $roomInfo;
     }

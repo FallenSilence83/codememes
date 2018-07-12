@@ -47,6 +47,9 @@ class UserController extends Controller
             if(!empty($request->input('hideInvites'))){
                 $this->user->hideInvites = ($request->input('hideInvites') == 'true');
             }
+            if(!empty($request->input('mute'))){
+                $this->user->mute = ($request->input('mute') == 'true');
+            }
             $this->user->save();
             //Cache::put('user_'.$this->user->userId, $this->user->serialize(), 30);
         }

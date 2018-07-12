@@ -116,8 +116,13 @@ var Room = window.Room || {
             }
 
             if(JSON.stringify(Room.gameState) != JSON.stringify(jsonResponse.roomInfo.game)){
-                var clearGame = (undefined == jsonResponse.roomInfo.game.gameId);
-                var isNewGame = (Room.gameState == null || Room.gameState.gameId != jsonResponse.roomInfo.game.gameId);
+                var clearGame = false;
+                var isNewGame = false;
+                if(undefined == jsonResponse.roomInfo.game || jsonResponse.roomInfo.game == null){
+                    clearGame = true;
+                }else{
+                    isNewGame = (Room.gameState == null || Room.gameState.gameId != jsonResponse.roomInfo.game.gameId);
+                }
                 console.log('clearGame: ' + clearGame);
                 console.log('isNewGame: ' + isNewGame);
                 Room.gameState = jsonResponse.roomInfo.game;
@@ -269,7 +274,7 @@ var Room = window.Room || {
         if(clearGame || isNewGame){
             $('#gameBoard').html('');
         }
-        if(Room.gameState != null && Room.gameState.memes){
+        if(Room.gameState != null && (Room.gameState.memes || Room.gameState.words)){
             var gameOver = (Room.gameState.winningTeam != null);
             if(gameOver && Room.gameState.winningTeam != Room.userState.team && Room.gameState.scoreOrange > 0 && Room.gameState.scoreBlue > 0){
                 //death card chosen, trigger rick
@@ -353,22 +358,106 @@ var Room = window.Room || {
             }
 
             //handle meme displays
-            if(isNewGame){
-                $.each(Room.gameState.memes, function(key, meme){
-                    $('#gameBoard').append(Room.getMemeCard(meme));
-                });
-            }else{
-                //TODO: update the memes already on the board
-                $('#gameBoard').html('');
-                $.each(Room.gameState.memes, function(key, meme){
-                    $('#gameBoard').append(Room.getMemeCard(meme));
-                });
+            var mode = null;
+            if(Room.gameState.memes && Room.gameState.memes.length) {
+                mode = 'memes';
+                if (isNewGame) {
+                    $.each(Room.gameState.memes, function (key, meme) {
+                        $('#gameBoard').append(Room.getMemeCard(meme));
+                    });
+                    setTimeout("Room.freezeGifs()", 8000);
+                } else {
+                    $.each(Room.gameState.memes, function (key, meme) {
+                        var elemMeme = $('#meme' + meme.memeId);
+                        if (elemMeme) {
+                            if (meme.selected) {
+                                if (!elemMeme.hasClass('selected')) {
+                                    elemMeme.addClass('selected');
+                                    elemMeme.addClass('animated');
+                                    elemMeme.addClass('bounce');
+                                    elemMeme.addClass('infinite');
+                                    var command = "$('#meme" + meme.memeId + "').removeClass('infinite');";
+                                    command += "$('#meme" + meme.memeId + "').removeClass('bounce');";
+                                    command += "$('#meme" + meme.memeId + "').removeClass('animated');";
+                                    setTimeout(command, 4000);
+                                    if (!Room.userState.mute) {
+                                        try {
+                                            successChime = document.getElementById("successAudio");
+                                            if (successChime) {
+                                                successChime.play();
+                                            }
+                                        } catch (error) {
+                                            console.log(error);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!elemMeme.hasClass(meme.status)) {
+                                elemMeme.removeClass('default');
+                                elemMeme.removeClass('orange');
+                                elemMeme.removeClass('blue');
+                                elemMeme.removeClass('neutral');
+                                elemMeme.removeClass('rick');
+                                elemMeme.addClass(meme.status);
+                            }
+                        }
+                    });
+                }
+            }else if(Room.gameState.words && Room.gameState.words.length) {
+                mode = 'words';
+                if (isNewGame) {
+                    $.each(Room.gameState.words, function (key, word) {
+                        $('#gameBoard').append(Room.getWordCard(word));
+                    });
+                } else {
+                    $.each(Room.gameState.words, function (key, word) {
+                        var elemWord = $('#word' + word.wordId);
+                        if (elemWord) {
+                            if (word.selected) {
+                                if (!elemWord.hasClass('selected')) {
+                                    elemWord.addClass('selected');
+                                    elemWord.addClass('animated');
+                                    elemWord.addClass('bounce');
+                                    elemWord.addClass('infinite');
+                                    var command = "$('#word" + word.wordId + "').removeClass('infinite');";
+                                    command += "$('#word" + word.wordId + "').removeClass('bounce');";
+                                    command += "$('#word" + word.wordId + "').removeClass('animated');";
+                                    setTimeout(command, 4000);
+                                    if (!Room.userState.mute) {
+                                        try {
+                                            successChime = document.getElementById("successAudio");
+                                            if (successChime) {
+                                                successChime.play();
+                                            }
+                                        } catch (error) {
+                                            console.log(error);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!elemWord.hasClass(word.status)) {
+                                elemWord.removeClass('default');
+                                elemWord.removeClass('orange');
+                                elemWord.removeClass('blue');
+                                elemWord.removeClass('neutral');
+                                elemWord.removeClass('rick');
+                                elemWord.addClass(word.status);
+                            }
+                        }
+                    });
+                }
             }
-            Room.memeBinding();
+            if(isNewGame) {
+                Room.memeBinding();
+            }
             $('#welcomePanel').hide();
             $('#createGame').hide();
-            if(!$('#sidebar').hasClass('active')){
-                Room.toggleSidebar();
+            if(mode == 'memes'){
+                if(!$('#sidebar').hasClass('active')){
+                    Room.toggleSidebar();
+                }
             }
         }else{
             $('.game-nav').removeClass('active');
@@ -406,7 +495,7 @@ var Room = window.Room || {
             '</li>';
         return html;
     },
-    
+
     getMemeCard: function(meme){
         var html = '<div id="meme'+meme.memeId+'" data-memeid='+meme.memeId+' class="meme-card ';
         if(meme.selected){
@@ -437,13 +526,30 @@ var Room = window.Room || {
         return html;
     },
 
+    getWordCard: function(word){
+        var html = '<div id="word'+word.wordId+'" data-wordid='+word.wordId+' class="word-card ';
+        if(word.selected){
+            html += ' selected ';
+        }
+        html += word.status+' col-sm-3 col-xs-6">';
+        html += '<div class="word-thumbnail" title="'+word.text+'">';
+        html += word.text;
+
+        html += '<div class="select-line">';
+        html += '<ion-icon class="icon-word-select" name="checkmark-circle" data-wordid="'+word.wordId+'"></ion-icon>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        return html;
+    },
+
     joinTeam: function(team){
         var url = '/room/team?team='+team;
         Room.standardAjax(url);
     },
 
-    newGame: function(orangeCaptain, blueCaptain){
-        var url='/room/newgame?orangeCaptainId='+orangeCaptain+'&blueCaptainId='+blueCaptain;
+    newGame: function(orangeCaptain, blueCaptain, gameMode){
+        var url='/room/newgame?orangeCaptainId='+orangeCaptain+'&blueCaptainId='+blueCaptain+'&mode='+gameMode;
         Room.standardAjax(url);
     },
 
@@ -485,6 +591,15 @@ var Room = window.Room || {
         Room.standardAjax(url);
     },
 
+    guessWord: function(wordId){
+        var url = '/room/guess?wordId=' + wordId;
+        Room.standardAjax(url);
+    },
+
+    freezeGifs: function(){
+        [].slice.apply(document.images).filter(is_gif_image).map(freeze_gif);
+    },
+
     memeModal: function(label, imageUrl){
         $('#memeModal .modal-title').html(''+label);
         $('#memeModal img').attr('src', imageUrl);
@@ -507,6 +622,11 @@ var Room = window.Room || {
         $('.btn-meme-select').on('click', function(e){
             var memeId = $(this).data('memeid');
             Room.guess(memeId);
+        });
+
+        $('.icon-word-select').on('click', function(e){
+            var wordId = $(this).data('wordid');
+            Room.guessWord(wordId);
         });
 
         $('.meme-youtube').on('click', function(){
@@ -541,8 +661,10 @@ var Room = window.Room || {
             e.preventDefault();
             var blueCaptain = $('#blueCaptain').val();
             var orangeCaptain = $('#orangeCaptain').val();
+            var gameMode = $("#newGameForm input[name='gameMode']:checked").val();
+            console.log(gameMode);
             if(blueCaptain && orangeCaptain){
-                Room.newGame(orangeCaptain, blueCaptain);
+                Room.newGame(orangeCaptain, blueCaptain, gameMode);
             }
         });
 
@@ -622,3 +744,21 @@ var Room = window.Room || {
 $(document).ready(function(){
     Room.init();
 });
+
+function is_gif_image(i) {
+    return /^(?!data:).*\.gif/i.test(i.src);
+}
+
+function freeze_gif(i) {
+    var c = document.createElement('canvas');
+    var w = c.width = i.width;
+    var h = c.height = i.height;
+    c.getContext('2d').drawImage(i, 0, 0, w, h);
+    try {
+        i.src = c.toDataURL("image/gif"); // if possible, retain all css aspects
+    } catch(e) { // cross-domain -- mimic original with all its tag attributes
+        for (var j = 0, a; a = i.attributes[j]; j++)
+            c.setAttribute(a.name, a.value);
+        i.parentNode.replaceChild(c, i);
+    }
+}

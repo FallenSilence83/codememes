@@ -234,8 +234,14 @@ class RoomController extends Controller
 
             $orangeCaptainId = $request->input('orangeCaptainId');
             $blueCaptainId = $request->input('blueCaptainId');
+            $mode = $request->input('mode');
+            if($mode == Game::MODE_WORDS){
+                $mode = Game::MODE_WORDS;
+            }else{
+                $mode = Game::MODE_MEMES;
+            }
 
-            $game = $room->newGame($orangeCaptainId, $blueCaptainId);
+            $game = $room->newGame($orangeCaptainId, $blueCaptainId, $mode);
 
             $tplVars = [
                 'user' => $this->user,
@@ -299,8 +305,9 @@ class RoomController extends Controller
         $this->init($request);
         try {
             $memeId = $request->input('memeId');
-            if(empty($memeId)){
-                throw new \Exception('Meme Selection Required');
+            $wordId = $request->input('wordId');
+            if(empty($memeId) && empty($wordId)){
+                throw new \Exception('Selection required');
             }
 
             if($this->user->roomId == null){
@@ -311,9 +318,13 @@ class RoomController extends Controller
                 throw new \Exception('No active game in room');
             }
             $game = new Game($room->gameId);
-            $bSaved = $game->selectMeme($memeId);
+            if(!empty($wordId)){
+                $bSaved = $game->selectWord($wordId);
+            }else{
+                $bSaved = $game->selectMeme($memeId);
+            }
             if(!$bSaved){
-                throw new \Exception('Failed to select meme ' . $memeId);
+                throw new \Exception('Failed to select meme ' . $memeId . ' - ' . $wordId);
             }else{
                 $game->save();
             }

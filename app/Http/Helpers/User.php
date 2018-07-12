@@ -32,6 +32,10 @@ class User implements \Serializable, \JsonSerializable
      * @var bool
      */
     protected $hideInvites;
+    /**
+     * @var bool
+     */
+    protected $mute;
 
     const TEAM_ORANGE = 'orange';
     const TEAM_BLUE = 'blue';
@@ -45,7 +49,7 @@ class User implements \Serializable, \JsonSerializable
      * @param bool $isCaptain
      */
     public function __construct($userId = null, $roomId = null, $displayName = null, $team = null,
-                                $isCaptain = false, $hideInvites = false)
+                                $isCaptain = false, $hideInvites = false, $mute = false)
     {
         $this->userId = $userId;
         $bFresh = true;
@@ -65,6 +69,7 @@ class User implements \Serializable, \JsonSerializable
             $this->team = $team;
             $this->isCaptain = $isCaptain;
             $this->hideInvites = $hideInvites;
+            $this->mute = $mute;
         }
     }
 
@@ -132,7 +137,8 @@ class User implements \Serializable, \JsonSerializable
             'displayName' => $this->displayName,
             'team' => $this->team,
             'isCaptain' => $this->isCaptain,
-            'hideInvites' => $this->hideInvites
+            'hideInvites' => $this->hideInvites,
+            'mute' => $this->mute
         ];
     }
 
@@ -147,5 +153,6 @@ class User implements \Serializable, \JsonSerializable
         $this->team = (isset($aUser['team'])) ? $aUser['team'] : null;
         $this->isCaptain = (isset($aUser['isCaptain'])) ? $aUser['isCaptain'] : null;
         $this->hideInvites = (isset($aUser['hideInvites'])) ? $aUser['hideInvites'] : null;
+        $this->mute = (isset($aUser['mute'])) ? $aUser['mute'] : null;
     }
 }
