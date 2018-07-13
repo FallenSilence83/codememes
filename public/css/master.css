@@ -440,10 +440,12 @@ body.team-blue.turn-blue:not(.game-over):not(.captain) .word-card:not(.selected)
     padding-bottom:30px;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 1px 1px 0 #444;
+    border-radius: 8px;
 }
 .word-card.neutral .word-thumbnail {
-    border: 5px solid limegreen;
-    background-color:green;
+    border: 5px solid #ffdf80;
+    background-color: #ffcc33;
 }
 .word-card.rick .word-thumbnail {
     border: 5px solid #000;
