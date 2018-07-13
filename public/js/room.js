@@ -497,7 +497,7 @@ var Room = window.Room || {
     },
 
     getMemeCard: function(meme){
-        var html = '<div id="meme'+meme.memeId+'" data-memeid='+meme.memeId+' class="meme-card ';
+        var html = '<div id="meme'+meme.memeId+'" data-memeid='+meme.memeId+' class="meme-card animated rollIn ';
         if(meme.selected){
             html += ' selected ';
         }
@@ -527,7 +527,7 @@ var Room = window.Room || {
     },
 
     getWordCard: function(word){
-        var html = '<div id="word'+word.wordId+'" data-wordid='+word.wordId+' class="word-card ';
+        var html = '<div id="word'+word.wordId+'" data-wordid='+word.wordId+' class="word-card animated rollIn ';
         if(word.selected){
             html += ' selected ';
         }
