@@ -365,6 +365,9 @@ var Room = window.Room || {
                     $.each(Room.gameState.memes, function (key, meme) {
                         $('#gameBoard').append(Room.getMemeCard(meme));
                     });
+                    command = "$('.meme-card').removeClass('rollIn');";
+                    command += "$('.meme-card').removeClass('animated');";
+                    setTimeout(command, 1000);
                     setTimeout("Room.freezeGifs()", 8000);
                 } else {
                     $.each(Room.gameState.memes, function (key, meme) {
@@ -372,7 +375,6 @@ var Room = window.Room || {
                         if (elemMeme) {
                             if (meme.selected) {
                                 if (!elemMeme.hasClass('selected')) {
-                                    elemMeme.removeClass('rollIn');
                                     elemMeme.addClass('selected');
                                     elemMeme.addClass('animated');
                                     elemMeme.addClass('bounce');
@@ -411,6 +413,9 @@ var Room = window.Room || {
                     $.each(Room.gameState.words, function (key, word) {
                         $('#gameBoard').append(Room.getWordCard(word));
                     });
+                    command = "$('.word-card').removeClass('rollIn');";
+                    command += "$('.word-card').removeClass('animated');";
+                    setTimeout(command, 1000);
                 } else {
                     $.each(Room.gameState.words, function (key, word) {
                         var elemWord = $('#word' + word.wordId);
