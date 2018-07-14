@@ -121,6 +121,12 @@ body.game-over .nav-item.nav-game{
     background-color: #f4511e;
     color: #fff;
 }
+.jumbotron .help-text{
+    color: #d4d4d4;
+}
+.jumbotron .help-text a{
+    color: #fff;
+}
 .jumbotron-full {
     border-radius: 0;
     margin-bottom: 0;
@@ -663,4 +669,75 @@ body.team-blue .nav-clue.orange .display-clue-number{
 }
 #newGameAlert{
     max-width:500px;
+}
+.panel {
+    border: 1px solid #f4511e;
+    border-radius:0;
+    transition: box-shadow 0.5s;
+    margin-top:20px;
+    text-align:left;
+}
+.panel h5{
+    width:100%;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.panel:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}
+
+.panel-footer .btn:hover {
+    border: 1px solid #f4511e;
+    background-color: #fff !important;
+    color: #f4511e;
+}
+
+.panel-heading {
+    color: #fff !important;
+    background-color: #f4511e !important;
+    padding: 25px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.panel-body{
+    padding:20px;
+    text-align:left;
+}
+.panel-body .alert{
+    margin: 10px 20px;
+}
+.panel-footer {
+    background-color: #fff !important;
+}
+
+.panel-footer h3 {
+    font-size: 32px;
+}
+
+.panel-footer h4 {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.panel-footer .btn {
+    margin: 15px 0;
+    background-color: #f4511e;
+    color: #fff;
+}
+.tutorial-img{
+    max-width:75%;
+    margin-left:auto;
+    margin-right:auto;
+}
+#howTo{
+    margin-top:40px;
+}
+#howTo h5{
+    font-size:1.2em;
+    font-weight:bold;
 }
