@@ -372,6 +372,7 @@ var Room = window.Room || {
                         if (elemMeme) {
                             if (meme.selected) {
                                 if (!elemMeme.hasClass('selected')) {
+                                    elemMeme.removeClass('rollIn');
                                     elemMeme.addClass('selected');
                                     elemMeme.addClass('animated');
                                     elemMeme.addClass('bounce');
