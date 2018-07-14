@@ -659,26 +659,6 @@
       "tags": ["animals", "kids"]
     },
     {
-      "memeId": 1073,
-      "displayName": "Lemon Party",
-      "thumb": "https://i.kym-cdn.com/entries/icons/mobile/000/003/390/lemonparty.jpg",
-      "url": "https://i.kym-cdn.com/entries/icons/mobile/000/003/390/lemonparty.jpg",
-      "youTubeKey": null,
-      "infoUrl": "http://knowyourmeme.com/memes/lemon-party",
-      "tags": ["nsfw", "adult", "food"],
-      "nsfw": true
-    },
-    {
-      "memeId": 1074,
-      "displayName": "Pedobear",
-      "thumb": "https://i.kym-cdn.com/entries/icons/mobile/000/000/005/PedoBear.jpg",
-      "url": "https://i.kym-cdn.com/entries/icons/mobile/000/000/005/PedoBear.jpg",
-      "youTubeKey": null,
-      "infoUrl": "http://knowyourmeme.com/memes/pedobear",
-      "tags": ["nsfw", "animals", "kids"],
-      "nsfw": true
-    },
-    {
       "memeId": 1075,
       "displayName": "Xzibit Yo Dawg",
       "thumb": "https://i.kym-cdn.com/photos/images/newsfeed/000/000/177/800px-Sup_dawg.jpg",
@@ -805,16 +785,6 @@
       "tags": ["nature", "conspiracy"]
     },
     {
-      "memeId": 1089,
-      "displayName": "Grab Them By The Pussy",
-      "thumb": "https://media.giphy.com/media/26hitK1VC4EFqgBig/giphy-downsized.gif",
-      "url": "https://media.giphy.com/media/26hitK1VC4EFqgBig/giphy.gif",
-      "youTubeKey": null,
-      "infoUrl": "http://knowyourmeme.com/memes/events/the-trump-tapes-trumptapes",
-      "tags": ["animals", "nsfw", "politics", "tv"],
-      "nsfw": true
-    },
-    {
       "memeId": 1090,
       "displayName": "Fake News",
       "thumb": "https://i.kym-cdn.com/entries/icons/mobile/000/021/993/donald-trump_650x400_51484158804.jpg",
@@ -912,16 +882,6 @@
       "youTubeKey": null,
       "infoUrl": "http://knowyourmeme.com/memes/mcdonalds-mulan-szechuan-sauce",
       "tags": ["tv", "food", "corporate"]
-    },
-    {
-      "memeId": 1101,
-      "displayName": "Cuck The Libs",
-      "thumb": "https://i.kym-cdn.com/photos/images/newsfeed/000/905/903/aa1.jpg",
-      "url": "https://i.kym-cdn.com/photos/images/newsfeed/000/905/903/aa1.jpg",
-      "youTubeKey": null,
-      "infoUrl": "http://knowyourmeme.com/memes/cuck",
-      "tags": ["politics", "conservative"],
-      "nsfw": true
     },
     {
       "memeId": 1102,
