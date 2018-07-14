@@ -180,7 +180,7 @@
             <div class="col-sm-6 col-xs-12">
                 <div class="panel panel-default text-center">
                     <div class="panel-heading">
-                        <h1>Game Play UI</h1>
+                        <h1>Gameplay Header</h1>
                     </div>
                     <div class="panel-body">
                         <h5>Turn Indicator</h5>
