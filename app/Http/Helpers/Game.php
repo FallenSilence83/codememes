@@ -64,7 +64,7 @@ class Game implements \Serializable, \JsonSerializable
      * Game constructor.
      * @param string $gameId
      */
-    public function __construct($gameId = null, $orangeCaptainId = null, $blueCaptainId = null, $mode = self::MODE_MEMES)
+    public function __construct($gameId = null, $orangeCaptainId = null, $blueCaptainId = null, $mode = self::MODE_MEMES, $mods = [])
     {
         $this->gameId = $gameId;
         if(empty($gameId)){
@@ -88,7 +88,7 @@ class Game implements \Serializable, \JsonSerializable
             }
 
             if($this->mode == self::MODE_WORDS){
-                $this->words = Word::getWords($totaCount);
+                $this->words = Word::getWords($totaCount, $mods);
                 shuffle($this->words);
                 $index = 0;
                 while ($blueCount > 0) {
@@ -104,7 +104,7 @@ class Game implements \Serializable, \JsonSerializable
                 $this->words[$index]->status = Word::STATUS_RICK;
                 shuffle($this->words);
             }else {
-                $this->memes = Meme::getMemes($totaCount);
+                $this->memes = Meme::getMemes($totaCount, $mods);
                 shuffle($this->memes);
                 $index = 0;
                 while ($blueCount > 0) {

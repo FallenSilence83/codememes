@@ -180,16 +180,68 @@ class Meme implements \Serializable, \JsonSerializable
     /**
      * returns the specified number of memes
      * @param $count
+     * @param $mods
      * @return Meme[]
      */
-    public static function getMemes($count)
+    public static function getMemes($count, $mods = [])
     {
         $result = [];
+        $available_mods = ['famous'];
+        $eval_mods = array_intersect($available_mods, $mods);
+        $numMods = count($eval_mods);
         try {
-            $memeJson = file_get_contents('memes.json', true);
-            //echo $memeJson;die;
-            $memes = json_decode($memeJson, true);
-            //echo $memes;die;
+            if($numMods > 4){
+                throw new \Exception('Too many mods');
+            }
+            if($numMods > 0){
+                $perModCount = floor($count * .25);
+                $coreCount = $count - ($numMods * $perModCount);
+            }else{
+                $coreCount = $count;
+            }
+
+            $rawSelected = [];
+            foreach($eval_mods as $mod){
+                $modJson = file_get_contents('memes-' . $mod . '.json', true);
+                $modMemes = json_decode($modJson, true);
+
+                $modSelected = $usedIndex = [];
+                $safety = 0;
+                while(count($modSelected) < $perModCount && $safety < 200){
+                    $safety++;
+                    $randIndex = rand(0, count($modMemes['memes'])-1);
+                    if(!in_array($randIndex, $usedIndex)){
+                        $usedIndex[] = $randIndex;
+                        $modSelected[] = $modMemes['memes'][$randIndex];
+                    }
+                }
+                $rawSelected = array_merge($rawSelected, $modSelected);
+            }
+
+            $codeJson = file_get_contents('memes.json', true);
+            $coreMemes = json_decode($codeJson, true);
+
+            $coreSelected = $usedIndex = [];
+            $safety = 0;
+            while(count($coreSelected) < $coreCount && $safety < 200){
+                $safety++;
+                $randIndex = rand(0, count($coreMemes['memes'])-1);
+                if(!in_array($randIndex, $usedIndex)){
+                    $usedIndex[] = $randIndex;
+                    $coreSelected[] = $coreMemes['memes'][$randIndex];
+                }
+            }
+            $rawSelected = array_merge($rawSelected, $coreSelected);
+
+            //convert to meme objects
+            foreach($rawSelected as $meme){
+                $nsfw = (isset($meme['nsfw']) && $meme['nsfw']);
+                $tags = (isset($meme['tags']) && is_array($meme['tags'])) ? $meme['tags'] : [];
+                $result[] = new Meme($meme['memeId'], $meme['displayName'] , $meme['url'] , null , false,
+                    $meme['thumb'] , $meme['youTubeKey'] , $meme['infoUrl'] , $tags, $nsfw);
+            }
+
+            /*echo $memes;die;
             foreach($memes['memes'] as $meme){
                 $nsfw = (isset($meme['nsfw']) && $meme['nsfw']);
                 $tags = (isset($meme['tags']) && is_array($meme['tags'])) ? $meme['tags'] : [];
@@ -204,6 +256,7 @@ class Meme implements \Serializable, \JsonSerializable
                 $result = array_values($result);
                 $iter--;
             }
+            */
         }catch (\Exception $e){
             error_log('failed to load memes.jsom');
         }

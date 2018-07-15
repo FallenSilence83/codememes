@@ -118,7 +118,7 @@
                     <hr/>
                     <div class="invite-container">
                         <h5 >
-                            Invite Friends
+                            <span class="invite-label blue-label">Invite Friends</span>
                             <ion-icon class="invite-toggle"
                                       @if ($user->hideInvites)
                                           name="eye"
@@ -138,7 +138,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Orange Team Captain:</label>
+                                    <label class="new-game-label orange-label" for="exampleFormControlSelect1">Orange Team Captain:</label>
                                     <select class="form-control" id="orangeCaptain">
                                         <option value="">Select Captain</option>
                                     </select>
@@ -146,7 +146,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label>Choose Game Mode:&nbsp;&nbsp;</label><br/>
+                                    <label class="new-game-label orange-label">Choose Game Mode:&nbsp;&nbsp;</label><br/>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gameMode" id="modeMemes" value="memes" checked>
                                         <label class="form-check-label" for="inlineRadio1">Memes</label>
@@ -157,23 +157,36 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Blue Team Captain:</label>
+                                    <label class="new-game-label blue-label" for="exampleFormControlSelect1">Blue Team Captain:</label>
                                     <select class="form-control" id="blueCaptain">
                                         <option value="">Select Captain</option>
                                     </select>
                                 </div>
+                                <div id="newGameAlert" class="alert alert-warning ml-auto mr-auto" role="alert">
+                                    <strong>The teams aren't quite ready to start a game.</strong>
+                                    <div class="new-game-issues">
+                                        <div>
+                                            <ion-icon name="egg"></ion-icon>
+                                            Not enough folks on the blue team
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                        </div>
-                        <div id="newGameAlert" class="alert alert-warning ml-auto mr-auto" role="alert">
-                            <strong>The teams aren't quite ready to start a game.</strong>
-                            <div class="new-game-issues">
-                                <div>
-                                    <ion-icon name="egg"></ion-icon>
-                                    Not enough folks on the blue team
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="new-game-label blue-label">Activate Game Mod?&nbsp;&nbsp;</label><br/>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input mod-checkbox" id="modFamous" value="famous">
+                                        <label class="custom-control-label" for="modFamous">Famous People</label>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    Games mods add new categories of cards to the game board.
+                                    When active, 25&percnt; of cards will come from the mod category.
                                 </div>
                             </div>
                         </div>

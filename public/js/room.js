@@ -554,8 +554,8 @@ var Room = window.Room || {
         Room.standardAjax(url);
     },
 
-    newGame: function(orangeCaptain, blueCaptain, gameMode){
-        var url='/room/newgame?orangeCaptainId='+orangeCaptain+'&blueCaptainId='+blueCaptain+'&mode='+gameMode;
+    newGame: function(orangeCaptain, blueCaptain, gameMode, mods){
+        var url='/room/newgame?orangeCaptainId='+orangeCaptain+'&blueCaptainId='+blueCaptain+'&mode='+gameMode+'&mods='+mods;
         Room.standardAjax(url);
     },
 
@@ -621,7 +621,7 @@ var Room = window.Room || {
 
     rickRoll: function(){
         $('#rickModal').modal('show');
-        $('#rickModal iframe').attr('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;autoplay=1');
+        $('#rickModal iframe').attr('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0');
     },
 
     memeBinding: function(){
@@ -668,9 +668,17 @@ var Room = window.Room || {
             var blueCaptain = $('#blueCaptain').val();
             var orangeCaptain = $('#orangeCaptain').val();
             var gameMode = $("#newGameForm input[name='gameMode']:checked").val();
-            console.log(gameMode);
+            var modSelects = $('.mod-checkbox');
+            var mods = '';
+            var modSep = '';
+            $('.mod-checkbox').each(function( index ) {
+                if($(this).prop( "checked")){
+                    mods += modSep + $(this).val();
+                    modSep = '|';
+                }
+            });
             if(blueCaptain && orangeCaptain){
-                Room.newGame(orangeCaptain, blueCaptain, gameMode);
+                Room.newGame(orangeCaptain, blueCaptain, gameMode, mods);
             }
         });
 

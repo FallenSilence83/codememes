@@ -127,33 +127,63 @@ class Word implements \Serializable, \JsonSerializable
     /**
      * returns the specified number of words
      * @param $count
+     * @param $mods
      * @return Word[]
      */
-    public static function getWords($count)
+    public static function getWords($count, $mods = [])
     {
         $result = [];
+        $available_mods = ['famous'];
+        $eval_mods = array_intersect($available_mods, $mods);
+        $numMods = count($eval_mods);
         try {
-            $wordJson = file_get_contents('words.json', true);
-            $words = json_decode($wordJson, true);
+            //6 cards per mod
 
-            $usedIndex = [];
-            $selected = [];
-            $safety = 0;
-
-            if($words['words']){
-                $words = $words['words'];
-            }else{
-                throw new \Exception('words file corrupted');
+            if($numMods > 4){
+                throw new \Exception('Too many mods');
             }
-            while(count($selected) < $count && $safety < 200){
+            if($numMods > 0){
+                $perModCount = floor($count * .25);
+                $coreCount = $count - ($numMods * $perModCount);
+            }else{
+                $coreCount = $count;
+            }
+
+            $rawSelected = [];
+            foreach($eval_mods as $mod){
+                $modJson = file_get_contents('words-' . $mod . '.json', true);
+                $modWords = json_decode($modJson, true);
+
+                $modSelected = $usedIndex = [];
+                $safety = 0;
+                while(count($modSelected) < $perModCount && $safety < 200){
+                    $safety++;
+                    $randIndex = rand(0, count($modWords['words'])-1);
+                    if(!in_array($randIndex, $usedIndex)){
+                        $usedIndex[] = $randIndex;
+                        $modSelected[] = $modWords['words'][$randIndex];
+                    }
+                }
+                $rawSelected = array_merge($rawSelected, $modSelected);
+            }
+
+            $codeJson = file_get_contents('words.json', true);
+            $coreWords = json_decode($codeJson, true);
+
+            $coreSelected = $usedIndex = [];
+            $safety = 0;
+            while(count($coreSelected) < $coreCount && $safety < 200){
                 $safety++;
-                $randIndex = rand(0, count($words)-1);
+                $randIndex = rand(0, count($coreWords['words'])-1);
                 if(!in_array($randIndex, $usedIndex)){
                     $usedIndex[] = $randIndex;
-                    $selected[] = $words[$randIndex];
+                    $coreSelected[] = $coreWords['words'][$randIndex];
                 }
             }
-            foreach($selected as $index=>$sWord){
+            $rawSelected = array_merge($rawSelected, $coreSelected);
+
+
+            foreach($rawSelected as $index=>$sWord){
                 $result[] = new Word($index+1, $sWord);
             }
         }catch (\Exception $e){

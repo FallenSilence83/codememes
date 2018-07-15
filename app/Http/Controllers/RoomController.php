@@ -241,7 +241,13 @@ class RoomController extends Controller
                 $mode = Game::MODE_MEMES;
             }
 
-            $game = $room->newGame($orangeCaptainId, $blueCaptainId, $mode);
+            $mods = [];
+            $modsParam = $request->input('mods');
+            if(!empty($modsParam)){
+                $mods = explode('|', $modsParam);
+            }
+
+            $game = $room->newGame($orangeCaptainId, $blueCaptainId, $mode, $mods);
 
             $tplVars = [
                 'user' => $this->user,

@@ -4,7 +4,7 @@ $list = [
     "memes"=> []
 ];
 
-$startId = 1000;
+$startId = 10000;
 $count = 200;
 
 for($i=0; $i<200; $i++){
@@ -12,7 +12,7 @@ for($i=0; $i<200; $i++){
         'memeId' => $startId+$i,
         'displayName'=> 'TodoName',
         'thumb' => 'todo',
-        'url' => 'image',
+        'url' => 'to',
         'youTubeKey' => null,
         'infoUrl' => null,
         'tags' => []
