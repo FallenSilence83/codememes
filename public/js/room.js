@@ -273,6 +273,7 @@ var Room = window.Room || {
     refreshGame: function(clearGame, isNewGame){
         if(clearGame || isNewGame){
             $('#gameBoard').html('');
+            Room.initSidebar();
         }
         if(Room.gameState != null && (Room.gameState.memes || Room.gameState.words)){
             var gameOver = (Room.gameState.winningTeam != null);
