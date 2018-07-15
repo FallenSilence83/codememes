@@ -48,6 +48,10 @@ class Game implements \Serializable, \JsonSerializable
      * @var $winningTeam
      */
     protected $winningTeam;
+    /**
+     * @var $previousGuessResult
+     */
+    protected $previousGuessResult;
 
     const TURN_ORANGE = 'orange';
     const TURN_BLUE = 'blue';
@@ -59,6 +63,9 @@ class Game implements \Serializable, \JsonSerializable
 
     const MODE_MEMES = 'memes';
     const MODE_WORDS = 'words';
+
+    const GUESS_RESULT_SUCCESS = 'success';
+    const GUESS_RESULT_FAIL = 'fail';
 
     /**
      * Game constructor.
@@ -135,6 +142,7 @@ class Game implements \Serializable, \JsonSerializable
         for($i=0; $i<count($this->memes); $i++){
             if($this->memes[$i]->memeId == $memeId){
                 $this->memes[$i]->selected = true;
+                $this->previousGuessResult = ($this->memes[$i]->status == $this->turn) ? self::GUESS_RESULT_SUCCESS : self::GUESS_RESULT_FAIL;
                 //was this an instant-lose condition?
                 if($this->memes[$i]->status == Meme::STATUS_RICK){
                     $this->toggleTurn();
@@ -182,6 +190,7 @@ class Game implements \Serializable, \JsonSerializable
         for($i=0; $i<count($this->words); $i++){
             if($this->words[$i]->wordId == $wordId){
                 $this->words[$i]->selected = true;
+                $this->previousGuessResult = ($this->words[$i]->status == $this->turn) ? self::GUESS_RESULT_SUCCESS : self::GUESS_RESULT_FAIL;
                 //was this an instant-lose condition?
                 if($this->words[$i]->status == Meme::STATUS_RICK){
                     $this->toggleTurn();
@@ -296,7 +305,8 @@ class Game implements \Serializable, \JsonSerializable
             'blueCaptainId' => $this->blueCaptainId,
             'clueWord' => $this->clueWord,
             'clueNumber' => $this->clueNumber,
-            'winningTeam' => $this->winningTeam
+            'winningTeam' => $this->winningTeam,
+            'previousGuessResult' => $this->previousGuessResult,
         ];
     }
 
@@ -314,5 +324,6 @@ class Game implements \Serializable, \JsonSerializable
         $this->clueWord = (isset($aGame['clueWord'])) ? $aGame['clueWord'] : null;
         $this->clueNumber = (isset($aGame['clueNumber'])) ? $aGame['clueNumber'] : null;
         $this->winningTeam = (isset($aGame['winningTeam'])) ? $aGame['winningTeam'] : null;
+        $this->previousGuessResult = (isset($aGame['previousGuessResult'])) ? $aGame['previousGuessResult'] : null;
     }
 }

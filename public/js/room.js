@@ -385,13 +385,26 @@ var Room = window.Room || {
                                     setTimeout(command, 4000);
                                     if (!Room.userState.mute) {
                                         try {
-                                            successChime = document.getElementById("successAudio");
-                                            if (successChime) {
-                                                successChime.play();
+                                            if(Room.gameState.previousGuessResult == 'success'){
+                                                successChime = document.getElementById("positiveAudio");
+                                                if (successChime) {
+                                                    successChime.play();
+                                                }
+                                            } else if(Room.gameState.previousGuessResult == 'fail'){
+                                                failBuzz = document.getElementById("buzzAudio");
+                                                if (failBuzz) {
+                                                    failBuzz.play();
+                                                }
+                                            } else {
+                                                pop = document.getElementById("popAudio");
+                                                if (pop) {
+                                                    pop.play();
+                                                }
                                             }
                                         } catch (error) {
                                             console.log(error);
                                         }
+
                                     }
                                 }
                             }
@@ -432,9 +445,16 @@ var Room = window.Room || {
                                     setTimeout(command, 4000);
                                     if (!Room.userState.mute) {
                                         try {
-                                            successChime = document.getElementById("successAudio");
-                                            if (successChime) {
-                                                successChime.play();
+                                            if(Room.gameState.previousGuessResult == 'success'){
+                                                successChime = document.getElementById("positiveAudio");
+                                                if (successChime) {
+                                                    successChime.play();
+                                                }
+                                            } else if(Room.gameState.previousGuessResult == 'fail'){
+                                                failBuzz = document.getElementById("buzzAudio");
+                                                if (failBuzz) {
+                                                    failBuzz.play();
+                                                }
                                             }
                                         } catch (error) {
                                             console.log(error);
@@ -488,18 +508,27 @@ var Room = window.Room || {
      * @returns {string} html
      */
     getUserLi: function(user){
+        var icon = (Room.isUserCaptain(user.userId)) ? 'ribbon' : 'person';
         var html = '' +
             '<li class="li-user">' +
             '    <span>' +
-            '        <ion-icon name="person"></ion-icon>' +
+            '        <ion-icon name="'+icon+'"></ion-icon>' +
             '        ' + user.displayName + '';
-        if(Room.roomState.hostId == user.userId){
+        /*if(Room.roomState.hostId == user.userId){
             html += '            <span class="user-desig">(host)</span>';
-        }
+        }*/
         html += '' +
             '    </span>' +
             '</li>';
         return html;
+    },
+
+    isUserCaptain: function(userId){
+        var isCaptain = false;
+        if(userId && Room.gameState && (userId == Room.gameState.blueCaptainId || userId == Room.gameState.orangeCaptainId)){
+            isCaptain = true;
+        }
+        return isCaptain;
     },
 
     getMemeCard: function(meme){

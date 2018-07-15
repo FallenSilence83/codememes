@@ -150,6 +150,9 @@
                 All credit to our great leader. Complaints? Contact
                 <a href="mailto:mueller@fakenews.com?Subject=CodeMemes%20SUX%20LOL">mueller@fakenews.com</a>
             </p>
+            <p class="footer-text">
+                Sound effects obtained from <a href="https://www.zapsplat.com">https://www.zapsplat.com</a>
+            </p>
         </footer>
     @show
 
@@ -228,12 +231,12 @@
 
     @section('scripts')
 
-    <audio id="successAudio">
-        <source src="/audio/success.mp3" type="audio/mpeg">
+    <audio id="positiveAudio">
+        <source src="/audio/positive.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    <audio id="failAudio">
-        <source src="/audio/fail.mp3" type="audio/mpeg">
+    <audio id="buzzAudio">
+        <source src="/audio/buzz.mp3" type="audio/mpeg">
     </audio>
     <audio id="popAudio">
         <source src="/audio/pop.mp3" type="audio/mpeg">
