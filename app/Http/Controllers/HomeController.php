@@ -23,7 +23,9 @@ class HomeController extends Controller
      */
     public function home(Request $request)
     {
-        $this->init($request);
+        if(!$this->isBotRequest()) {
+            $this->init($request);
+        }
         return view('home', ['user' => $this->user]);
     }
 

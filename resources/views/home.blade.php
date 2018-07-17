@@ -35,7 +35,7 @@
             <form class="form-inline" action="/room">
                 <div class="input-group">
                     <input type="text" name="roomId" class="form-control" size="50" placeholder="Room Code" required
-                        @if ($user->roomId != null)
+                        @if ($user && $user->roomId != null)
                             value="{{$user->roomId}}"
                         @endif
                     />

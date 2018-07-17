@@ -99,17 +99,17 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item user-nav">
-                    @if ($user->displayName != null)
+                    @if (!empty($user) && $user->displayName != null)
                         <div class="help-text user-actions">
-                            <ion-icon class="edit-user" name="create"></ion-icon>
-                            <ion-icon class="mute-button"
+                            <ion-icon class="edit-user" name="create" title="Edit User"></ion-icon>
+                            <ion-icon class="mute-button" title="Mute Game Sound"
                                   @if ($user->mute)
                                       name="volume-off"
                                   @else
                                       name="volume-high"
                                   @endif;
                                 ></ion-icon>
-                            <a class="logout" href="#" title="Reset">
+                            <a class="logout" href="#" title="Reset User">
                                 <ion-icon name="log-out"></ion-icon>
                             </a>
                         </div>
@@ -219,7 +219,11 @@
                         <form id="editUserForm" class="form">
                             <div class="form-group">
                                 <label for="displayName">Display Name:</label>
-                                <input id="displayNameEdit" type="text" class="form-control" value="{{$user->displayName}}"/>
+                                <input id="displayNameEdit" type="text" class="form-control"
+                                       @if ($user)
+                                       value="{{$user->displayName}}"
+                                       @endif;
+                                />
                             </div>
                             <button id="editUserSubmit" type="submit" class="btn btn-sm btn-default mt-2">Save</button>
                         </form>

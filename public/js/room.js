@@ -123,6 +123,20 @@ var Room = window.Room || {
                 }else{
                     isNewGame = (Room.gameState == null || Room.gameState.gameId != jsonResponse.roomInfo.game.gameId);
                 }
+                //pop sound if clue state changes
+                if (!Room.userState.mute) {
+                    try {
+                        if(Room.gameState.clueWord != jsonResponse.roomInfo.game.clueWord){
+                            var pop = document.getElementById("popAudio");
+                            if (pop) {
+                                pop.play();
+                            }
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+
+                }
                 console.log('clearGame: ' + clearGame);
                 console.log('isNewGame: ' + isNewGame);
                 Room.gameState = jsonResponse.roomInfo.game;

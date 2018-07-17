@@ -24,7 +24,6 @@ class Controller extends BaseController
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -129,6 +128,17 @@ class Controller extends BaseController
             "%s://%s",
             isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
             $_SERVER['SERVER_NAME']
+        );
+    }
+
+    /**
+     * Returns true if we detect a bot in the user agent string
+     * @return bool
+     */
+    protected function isBotRequest() {
+        return (
+            isset($_SERVER['HTTP_USER_AGENT'])
+            && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])
         );
     }
 }

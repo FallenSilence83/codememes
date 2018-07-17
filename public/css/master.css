@@ -335,7 +335,7 @@ ul li.blue-team ul a, ul li.blue-team ul  span {
 .meme-card.neutral .thumbnail img,
 .meme-card.neutral .thumbnail canvas,
 .word-card.neutral .word-thumbnail {
-    border: 5px solid limegreen;
+    border: 5px solid #ffcc33;
 }
 .meme-card.rick .thumbnail img,
 .meme-card.rick .thumbnail canvas,

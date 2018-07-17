@@ -28,6 +28,9 @@ class RoomController extends Controller
      */
     public function room(Request $request)
     {
+        if($this->isBotRequest()) {
+            return view('home', ['user' => $this->user]);
+        }
         $this->init($request);
         $roomIdParam = $request->input('roomId');
         if($roomIdParam !=null){
