@@ -753,6 +753,22 @@ body.team-blue .nav-clue.orange .display-clue-number{
     margin-left:auto;
     margin-right:auto;
 }
+.img-tutorial-user,
+.img-tutorial-clueform{
+    max-width: 300px;
+}
+.img-tutorial-clue{
+    max-width: 275px;
+}
+
+@media screen
+and (max-width: 500px)  {
+    .img-tutorial-user,
+    .img-tutorial-clueform,
+    .img-tutorial-clue{
+        width:260px;
+    }
+}
 #howTo{
     margin-top:40px;
 }

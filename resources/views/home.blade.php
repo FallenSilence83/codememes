@@ -65,7 +65,7 @@
                             You'll see your player badge on the top right corner of this site.
                         </p>
                         <p class="text-center">
-                            <img src="/img/tutorial-user.png" style="width:300px;"/>
+                            <img class='img-tutorial-user' src="/img/tutorial-user.png"/>
                         </p>
                         <p>
                             If you don't like the name we gave you then change it by
@@ -212,7 +212,7 @@
                             </ol>
                         </p>
                         <p class="text-center">
-                            <img src="/img/tutorial-clue-form.png" style="width:300px;"/>
+                            <img class='img-tutorial-clueform' src="/img/tutorial-clue-form.png"/>
                         </p>
 
                         <h5>Clue Display</h5>
@@ -220,7 +220,7 @@
                             When the clue is submitted it will be distributed to all players in the game.
                         </p>
                         <p class="text-center">
-                            <img src="/img/tutorial-clue-view.png" style="width:275px;"/>
+                            <img class='img-tutorial-clue' src="/img/tutorial-clue-view.png"/>
                         </p>
 
                     </div>
