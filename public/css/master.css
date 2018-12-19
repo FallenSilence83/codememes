@@ -486,7 +486,7 @@ body.team-blue.turn-blue:not(.game-over):not(.captain) .word-card:not(.selected)
     background-color:#3a6884;
 }
 
-.game-nav/*, .game-nav-mobile*/{
+.game-nav, .game-nav-mobile{
     display: none;
 }
 .game-nav.active{
