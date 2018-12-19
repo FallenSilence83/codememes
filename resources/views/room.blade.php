@@ -77,22 +77,22 @@
 @section('content')
     <div class="room-content container-fluid">
         <div class="row game-nav-mobile">
-            <div class="col-6 nav-turn-msg">
+            <div class="col-5 nav-turn-msg">
                 <div class="help-text">Turn:</div>
                 <div class="turn-msg-section">
-                    <span class="turn-msg orange-turn-msg">Orange's Turn</span>
-                    <span class="turn-msg blue-turn-msg">Blue's Turn</span>
+                    <span class="turn-msg orange-turn-msg">Orange</span>
+                    <span class="turn-msg blue-turn-msg">Blue</span>
                 </div>
             </div>
-            <div class="col-6 nav-score">
-                <div class="help-text">Remaining Memes:</div>
+            <div class="col-7 nav-score">
+                <div class="help-text">Remaining:</div>
                 <div class="score-board">
                     <span class="score orange-score"></span>
                     -
                     <span class="score blue-score"></span>
                 </div>
             </div>
-            <div class="col-10 nav-clue-form">
+            <div class="col-12 nav-clue-form">
                 <div class="help-text">Enter a clue for your team:</div>
                 <div class="input-group clue-form ">
                     <input type="text" class="form-control clue_word" name="clue_word" placeholder="Clue Word" aria-label="Clue Word" aria-describedby="basic-addon2">
@@ -113,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-10 nav-clue">
+            <div class="col-12 nav-clue">
                 <div class="help-text">
                     <span class="blueTeamLabel">Blue's</span><span class="orangeTeamLabel">Orange's</span>
                     Clues:
@@ -127,10 +127,6 @@
                         </span>
                     <span class="display-clue-waiting clue-unavailable">Waiting For Captain...</span>
                 </div>
-            </div>
-            <div class="col-2 nav-game">
-                <div class="help-text">&nbsp;</div>
-                <ion-icon id="sidebarNewGame" class="show-new-game" name="sync" title="New Game"></ion-icon>
             </div>
         </div>
         <div id="welcomePanel" class="row pb-2">
