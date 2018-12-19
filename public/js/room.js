@@ -51,8 +51,6 @@ var Room = window.Room || {
                 //console.log( "complete" );
             }
         });
-
-        //this.refreshFeatures(true);
     },
 
     extendSession: function(){
@@ -310,6 +308,7 @@ var Room = window.Room || {
             }
 
             $('.game-nav').addClass('active');
+            $('.game-nav-mobile').addClass('active');
 
             //set the turn color of nav items
             var clueForm = $('.nav-clue-form');
@@ -365,7 +364,7 @@ var Room = window.Room || {
                     clueForm.show();
                     clue.hide();
                 }else{
-                    $('#clueWord').val('');
+                    $('.clue_word').val('');
                     $('#clueNumber').val('1');
                     clueForm.hide();
                     clue.show();
@@ -502,6 +501,7 @@ var Room = window.Room || {
             }
         }else{
             $('.game-nav').removeClass('active');
+            $('.game-nav-mobile').removeClass('active');
             $('#gameBoard').html('');
             $('#welcomePanel').show();
             $('#createGame').show();
@@ -551,7 +551,7 @@ var Room = window.Room || {
         if(meme.selected){
             html += ' selected ';
         }
-        html += meme.status+' col-xl-2 col-lg-3 col-md-4 col-sm-6">';
+        html += meme.status+' col-xl-2 col-lg-3 col-md-4 col-6">';
         html += '<div class="thumbnail">';
         html += '<img src="'+meme.thumb+'" alt="'+meme.displayName+'" class="meme-img">';
         html += '<div class="caption">'+meme.displayName+'</div>';
@@ -581,7 +581,7 @@ var Room = window.Room || {
         if(word.selected){
             html += ' selected ';
         }
-        html += word.status+' col-sm-3 col-xs-6">';
+        html += word.status+' col-sm-3 col-6">';
         html += '<div class="word-thumbnail" title="'+word.text+'">';
         html += word.text;
 
@@ -734,7 +734,25 @@ var Room = window.Room || {
             $('#createGame').show();
         });
 
-        $('#clueSubmit').on('click', function(){
+        $('.clue_word').on('change', function(){
+            //ensure
+            console.log('clue word changed');
+            if($(this).id != 'clueWord'){
+                $('#clueWord').val($(this).val());
+                console.log('clue word written');
+            }
+        });
+
+        $('.clue_number').on('change', function(){
+            //ensure
+            console.log('clue number changed');
+            if($(this).id != 'clueNumber'){
+                $('#clueNumber').val($(this).val());
+                console.log('clue number written');
+            }
+        });
+
+        $('.clue_submit').on('click', function(){
             Room.submitClue();
         });
 
@@ -795,6 +813,13 @@ var Room = window.Room || {
                 }
             });
         });
+
+        var $window = $(window);
+        $window.resize(function resize(){
+            if ($window.width() < 768) {
+                return $('#sidebar').addClass('active');
+            }
+        }).trigger('resize');
     },
 
 };

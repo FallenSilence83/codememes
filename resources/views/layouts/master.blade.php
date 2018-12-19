@@ -31,9 +31,9 @@
 <body id="codeMemes" data-spy="scroll" data-target=".navbar" data-offset="60" class="">
 
     @section('header')
-    <nav class="navbar navbar-expand-md navbar-default navbar-fixed-top navbar-header">
+    <nav class="navbar navbar-expand navbar-default navbar-fixed-top navbar-header">
 
-        <a class="navbar-brand" href="/"><img src="/img/cm_logo_header.jpeg" height="100"/></a>
+        <a class="navbar-brand" href="/"><div class="header-logo"></div></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,12 +58,12 @@
                 <li class="nav-item nav-clue-form">
                     <div class="help-text">Enter a clue for your team:</div>
                     <div class="input-group clue-form ">
-                        <input type="text" class="form-control" name="clue_word" id="clueWord" placeholder="Clue Word" aria-label="Clue Word" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control clue_word" name="clue_word" id="clueWord" placeholder="Clue Word" aria-label="Clue Word" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <select class="custom-select" name="clue_number" id="clueNumber">
+                            <select class="custom-select clue_number" name="clue_number" id="clueNumber">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
-                                <option value="3">3</option>\
+                                <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="6">6</option>
@@ -72,7 +72,7 @@
                                 <option value="9">9</option>
                                 <option value="0">0</option>
                             </select>
-                            <button id="clueSubmit" class="btn " type="button">Submit</button>
+                            <button id="clueSubmit" class="btn clue_submit" type="button">Submit</button>
                         </div>
                     </div>
                 </li>

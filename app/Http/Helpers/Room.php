@@ -59,7 +59,16 @@ class Room implements \Serializable, \JsonSerializable
             if ($aRoom) {
                 $this->unserialize($aRoom);
             } else {
-                throw new \Exception('Room not found');
+                //new custom room
+                $this->roomId = $this->roomId;
+                $this->hostId = $hostId;
+                $this->gameId = null;
+                $this->userIds = [];
+                $this->orangeTeamIds = [];
+                $this->blueTeamIds = [];
+                if (!empty($hostId)) {
+                    $this->addUser($hostId);
+                }
             }
         }
     }

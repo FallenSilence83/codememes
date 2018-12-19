@@ -74,6 +74,14 @@ ion-icon{
     padding-top:0;
     padding-bottom:0;
 }
+.navbar-header.navbar .navbar-brand .header-logo{
+    height: 100px;
+    width: 267px;
+    background-image:url("/img/cm_logo_header.jpeg");
+    -webkit-background-size: 267px;
+    background-size: 267px;
+    background-repeat: no-repeat;
+}
 .navbar-header .nav-item{
     margin-right:15px;
     color:#555;
@@ -206,12 +214,14 @@ footer .footer-text{
 #sidebar.active {
     margin-left: -283px;
 }@media (max-width: 768px) {
+    /*
     #sidebar {
         margin-left: -283px;
     }
     #sidebar.active {
         margin-left: 0;
     }
+    */
 }
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
@@ -476,16 +486,16 @@ body.team-blue.turn-blue:not(.game-over):not(.captain) .word-card:not(.selected)
     background-color:#3a6884;
 }
 
-.game-nav{
+.game-nav/*, .game-nav-mobile*/{
     display: none;
 }
 .game-nav.active{
     display: flex;
 }
-#clueNumber{
+.clue_number{
     width:55px;
 }
-#clueSubmit.btn{
+.clue_submit.btn{
     overflow:visible;
 }
 .nav-clue-form.orange input,
@@ -775,4 +785,31 @@ and (max-width: 500px)  {
 #howTo h5{
     font-size:1.2em;
     font-weight:bold;
+}
+/* mobile styles */
+@media (max-width: 768px) {
+    .navbar-header.navbar .navbar-brand img {
+        height: 50px;
+        content: url("/img/cm_logo_short.png");
+    }
+    .navbar-header.navbar .navbar-brand .header-logo{
+        height: 50px;
+        width: 55px;
+        background-image:url("/img/cm_logo_short.png");
+        -webkit-background-size: 55px;
+        background-size: 55px;
+        background-repeat: no-repeat;
+    }
+    .game-nav-mobile {
+        margin-bottom: 20px;
+    }
+    .game-nav-mobile.active {
+        display: flex;
+    }
+    .game-nav.active {
+        display:none;
+    }
+    .game-nav-mobile .nav-game{
+        font-size: 1.4em;
+    }
 }

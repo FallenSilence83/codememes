@@ -142,7 +142,8 @@ class RoomController extends Controller
     {
         $this->init($request);
         try {
-            $room = new Room(null, $this->user->userId);
+            $roomId = $request->input('roomId', null);
+            $room = new Room($roomId, $this->user->userId);
             $room->save();
 
             $this->user->roomId = $room->roomId;
@@ -167,7 +168,7 @@ class RoomController extends Controller
     {
         $this->init($request);
         try {
-            $roomId = $request->input('roomId');
+            $roomId = $request->input('roomId', null);
             $room = new Room($roomId);
             $room->addUser($this->user->userId);
             $room->save();
