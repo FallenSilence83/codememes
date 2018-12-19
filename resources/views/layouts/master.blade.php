@@ -182,7 +182,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <iframe width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                        <iframe style="width:100%;min-height:315px;" src="" frameborder="0" allow="autoplay; encrypted-media"></iframe>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <iframe width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                        <iframe style="width:100%;min-height:315px;" src="" frameborder="0" allow="autoplay; encrypted-media"></iframe>
                     </div>
                 </div>
             </div>
