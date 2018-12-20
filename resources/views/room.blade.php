@@ -123,7 +123,7 @@
                             <span
                                     class="display-clue-word"></span><span
                                     class="display-clue-number"></span><span
-                                    class="display-clue-pass">Pass Turn</span>
+                                    class="display-clue-pass">Pass</span>
                         </span>
                     <span class="display-clue-waiting clue-unavailable">Waiting For Captain...</span>
                 </div>
@@ -189,7 +189,7 @@
                     </div>
                     <form id="newGameForm" class="form">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="new-game-label orange-label" for="exampleFormControlSelect1">Orange Team Captain:</label>
                                     <select class="form-control" id="orangeCaptain">
@@ -197,7 +197,26 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="new-game-label blue-label" for="exampleFormControlSelect1">Blue Team Captain:</label>
+                                    <select class="form-control" id="blueCaptain">
+                                        <option value="">Select Captain</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div id="newGameAlert" class="alert alert-warning ml-auto mr-auto" role="alert">
+                                    <strong>The teams aren't quite ready.</strong>
+                                    <div class="new-game-issues">
+                                        <div>
+                                            <ion-icon name="egg"></ion-icon>
+                                            Not enough folks on the blue team
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="new-game-label orange-label">Choose Game Mode:&nbsp;&nbsp;</label><br/>
                                     <div class="form-check form-check-inline">
@@ -210,26 +229,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="new-game-label blue-label" for="exampleFormControlSelect1">Blue Team Captain:</label>
-                                    <select class="form-control" id="blueCaptain">
-                                        <option value="">Select Captain</option>
-                                    </select>
-                                </div>
-                                <div id="newGameAlert" class="alert alert-warning ml-auto mr-auto" role="alert">
-                                    <strong>The teams aren't quite ready to start a game.</strong>
-                                    <div class="new-game-issues">
-                                        <div>
-                                            <ion-icon name="egg"></ion-icon>
-                                            Not enough folks on the blue team
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="new-game-label blue-label">Activate Game Mod?&nbsp;&nbsp;</label><br/>
                                     <div class="custom-control custom-checkbox custom-control-inline">
@@ -237,6 +237,8 @@
                                         <label class="custom-control-label" for="modFamous">Famous People</label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="alert alert-info">
                                     Games mods add new categories of cards to the game board.
                                     When active, 25&percnt; of cards will come from the mod category.

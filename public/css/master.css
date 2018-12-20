@@ -444,7 +444,7 @@ body.team-blue.turn-blue:not(.game-over):not(.captain) .word-card:not(.selected)
 .word-card .select-line{
     display:none;
     position:absolute;
-    bottom:7px;
+    top:7px;
     left:0;
     font-size: 1.3em;
     width: 100%;
@@ -693,6 +693,22 @@ body.team-blue .nav-clue.orange .display-clue-number{
 .new-game-label{
     font-size:1.1em;
 }
+#newGameForm .alert{
+    font-size: .8em;
+}
+#newGameForm .alert strong{
+    font-size: 1.2em;
+}
+#orangeCaptain{
+    background-color: #f4511e;
+    color: #fff;
+    font-weight: bold;
+}
+#blueCaptain{
+    background-color: #3a6884;
+    color: #fff;
+    font-weight: bold;
+}
 .blue-label{
     color:#a3c7db;
 }
@@ -811,5 +827,23 @@ and (max-width: 500px)  {
     }
     .game-nav-mobile .nav-game{
         font-size: 1.4em;
+    }
+    #gameBoard .word-card .word-thumbnail{
+        font-size: 16px;
+    }
+    .room-content .jumbotron{
+        font-size: .9em;
+        padding: 1rem .5rem;
+    }
+    h2{
+        font-size: 1.4em;
+        font-weight:bold;
+    }
+    h5{
+        font-size: 1.2em;
+    }
+    .jumbotron.text-center .input-group .input-group-btn{
+        margin-left: auto;
+        margin-right:auto;
     }
 }

@@ -365,7 +365,7 @@ var Room = window.Room || {
                     clue.hide();
                 }else{
                     $('.clue_word').val('');
-                    $('#clueNumber').val('1');
+                    $('.clue_number').val('1');
                     clueForm.hide();
                     clue.show();
                 }
@@ -732,6 +732,10 @@ var Room = window.Room || {
 
         $('.show-new-game').on('click', function(){
             $('#createGame').show();
+
+            if ($(window).width() < 768) {
+                $('#sidebar').addClass('active');
+            }
         });
 
         $('.clue_word').on('change', function(){

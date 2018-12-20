@@ -13,10 +13,6 @@
     <div class="homepage">
         <div class="jumbotron text-center jumbotron-full">
             <h1>Create A Room?</h1>
-            <div class="mobile-show alert alert-danger">
-                <strong>This site is currently not optimized for your screen size.</strong><br/>
-                Please revisit us in a desktop browser before attempting to play.
-            </div>
             <form class="form-inline">
                 <div class="input-group">
                     <div class="input-group-btn">
