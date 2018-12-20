@@ -818,6 +818,7 @@ and (max-width: 500px)  {
     }
     .game-nav-mobile {
         margin-bottom: 20px;
+        margin-top: 15px;
     }
     .game-nav-mobile.active {
         display: flex;
@@ -845,5 +846,8 @@ and (max-width: 500px)  {
     .jumbotron.text-center .input-group .input-group-btn{
         margin-left: auto;
         margin-right:auto;
+    }
+    .container-fluid {
+        padding: 20px 15px;
     }
 }
