@@ -16,15 +16,32 @@
                     Game Room
                     <ion-icon id="sidebarNewGame" class="show-new-game" name="sync" title="New Game"></ion-icon>
                 </h3>
-                <strong>Room Code:</strong>
-                <span class="invite-field" @if ($user->hideInvites)style="display:none;"@endif;>{{$roomInfo['room']->roomId}}</span>
-                <ion-icon class="invite-toggle"
-                          @if ($user->hideInvites)
-                            name="eye"
-                          @else
-                            name="eye-off"
-                          @endif;
-                          title="Toggle Invite Visibility"></ion-icon>
+                <div>
+                    <div class="help-text user-actions">
+                        <ion-icon class="edit-user" name="create" title="Edit User"></ion-icon>
+                        <ion-icon class="mute-button" title="Mute Game Sound"
+                                  @if ($user->mute)
+                                  name="volume-off"
+                                  @else
+                                  name="volume-high"
+                                  @endif;
+                        ></ion-icon>
+                        <a class="logout" href="#" title="Reset User">
+                            <ion-icon name="log-out"></ion-icon>
+                        </a>
+                    </div>
+                    <div>
+                        <strong>Room Code:</strong>
+                        <span class="invite-field" @if ($user->hideInvites)style="display:none;"@endif;>{{$roomInfo['room']->roomId}}</span>
+                        <ion-icon class="invite-toggle"
+                                  @if ($user->hideInvites)
+                                  name="eye"
+                                  @else
+                                  name="eye-off"
+                                  @endif;
+                                  title="Toggle Invite Visibility"></ion-icon>
+                    </div>
+                </div>
             </div>
 
             <ul class="list-unstyled components">

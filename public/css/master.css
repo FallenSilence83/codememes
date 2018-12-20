@@ -850,4 +850,13 @@ and (max-width: 500px)  {
     .container-fluid {
         padding: 20px 15px;
     }
+    body.team-orange.turn-orange:not(.game-over):not(.captain) .meme-card:not(.selected) .thumbnail .select-line,
+    body.team-blue.turn-blue:not(.game-over):not(.captain) .meme-card:not(.selected) .thumbnail .select-line{
+        display:block;
+    }
+    #sidebar .help-text.user-actions{
+        color: #fff;
+        text-align: right;
+        float: right;
+    }
 }
